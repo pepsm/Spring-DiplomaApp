@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -9,8 +10,9 @@
     <link rel="stylesheet" type="text/css"
           th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
 
-    <title>Main </title>
+    <title>Admin</title>
 </head>
+
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
@@ -31,24 +33,15 @@
         </div>
     </div>
 </nav>
-
-<br>
-<br>
 <div class="container">
     <h2>Main</h2>
     <p>
         Welcome <span sec:authentication="principal.username">User</span>
     </p>
-
-    <div class="form-group">
-						<span> <a href="/" th:href="@{/uploadFile}">Upload File</a></span>
-    </div>
+    <p sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></p>
 </div>
-
-<script type="text/javascript"
-        th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
-<script type="text/javascript"
-        th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
-
+<div class="container">
+    <h1>This is admin home page</h1>
+</div>
 </body>
 </html>
