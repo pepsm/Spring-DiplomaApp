@@ -1,0 +1,39 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.content {
+    padding: 1%;
+    float: left;
+    width: 80%;
+    text-align: center;
+    background-color: #F5CF8E;
+}
+.font-group{
+    text-align: center;
+}
+.sidebar {
+    float: right;
+    width: 18%;                 /* Add this */
+    height: 300px;
+    background-color: #F09A9D;
+}
+.post-container{
+    background-color: #eeeeee;
+    width: 70%;
+    padding: 2%;
+    height: 150px;
+    margin-bottom: 1%;
+}
+.column {
+    float: left;
+    width: 31%;
+    margin: 20px 1.15%;
+    height: 160px;
+    background-color: #B2D6FF;    /* Medium blue */
+}
+.footer {
+    overflow: hidden;
+    background-color: #D6E9FE;
+}

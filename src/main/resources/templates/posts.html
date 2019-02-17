@@ -8,10 +8,8 @@
 
     <link rel="stylesheet" type="text/css"
           th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
-    <link rel="stylesheet" type="text/css" href="../static/css/index.css"
-        media="all"  th:href="@{/css/index.css}" />
 
-    <title>Main </title>
+    <title>Post</title>
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -33,40 +31,35 @@
         </div>
     </div>
 </nav>
+
 <br>
+<br>
+
 <div class="container">
-    <h2>Main</h2>
-    <p>
-        Welcome <span sec:authentication="principal.username">User</span>
-    </p>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
 
+            <h1>Create Post</h1>
+
+            <form th:action="@{/posts}" th:object="${post}" method="post">
+
+                <div class="form-group">
+                    <label for="topic" class="control-label">Topic</label>
+                    <input id="topic" class="form-control" th:field="*{topic}" />
+                </div>
+
+                <div class="form-group">
+                    <label for="text" class="control-label">Text</label>
+                    <input id="text" class="form-control" th:field="*{text}" />
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
-    <div class='container-fluid'>
-    <div class='sidebar'>
-        <div class="form-group">
-            <span> <a href="/" th:href="@{/fileupload}">Upload File</a></span>
-        </div>
-        <div class="form-group">
-            <span> <a href="/" th:href="@{/posts}">Create Post</a></span>
-        </div>
-    </div>
-    <div  class="content" th:if="${not #lists.isEmpty(list)}">
-        <div th:each="p : ${list}">
-            <div class="post-container">
-            <span class="topic" th:text="${p.topic}"></span>
-            <div class="text-content" th:text="${p.text}"></div>
-            </div>
-        </div>
-    </div>
-
-    </div>
-
-<div class='footer'>
-    <div class='column'></div>
-    <div class='column'></div>
-    <div class='column'></div>
-</div>
 <script type="text/javascript"
         th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
 <script type="text/javascript"
