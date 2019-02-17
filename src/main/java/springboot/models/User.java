@@ -2,6 +2,8 @@ package springboot.models;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "username"))
@@ -16,6 +18,7 @@ public class User {
     private String lastName;
     private String email;
     private String password;
+
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
@@ -44,6 +47,7 @@ public class User {
         this.password = password;
         this.roles = roles;
     }
+
 
     public Long getId() {
         return id;
