@@ -1,5 +1,6 @@
 package springboot.models;
 
+
 public class FileInfo {
     private String filename;
     private String url;
@@ -25,3 +26,4 @@ public class FileInfo {
         this.url = url;
     }
 }
+
