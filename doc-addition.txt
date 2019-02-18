@@ -1,0 +1,42 @@
+Развойни среди и технологии и основни принципи за реализиране
+на WEB приложения
+
+- ide InteliJ
+- framework Spring MVC
+- api
+- Thymeleaf view engine
+- JPA
+- HIbernate
+- Maven
+- Spring Security
+- Authentication module
+- Configuration class
+- Service
+
+GET,
+POST, PUT, PATCH и DELETE заявки.
+
+-Структура на базата данни 
+
+- какжо е SQL
+- таблиците
+
+
+Реализация
+
+- ORM
+- MODEL
+- VIEW
+- CONTROLLER
+- Interface
+- DAO класове
+- Matcher
+- Utilities
+
+ 
+ - кои класове са наследявани
+ - извадки от кода
+ 
+ 
+ Application Controller
+ 
