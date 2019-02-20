@@ -10,6 +10,6 @@ import java.util.List;
 public interface PostService {
 
     List<Post> listAllPosts();
-
+    void deleteById(String id);
     Post save(PostDTO post);
 }

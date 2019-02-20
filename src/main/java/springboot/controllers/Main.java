@@ -26,8 +26,9 @@ public class Main {
         model.addAttribute("list", postService.listAllPosts());
         return "index";}
 
-    @GetMapping("/admin")
-    public  String admin(){return "adminPage";}
+    @GetMapping("/adminPage")
+    public  String admin(){
+        return "admin";}
 
     @GetMapping("/login")
     public String login(Model model) {
@@ -38,5 +39,14 @@ public class Main {
     public String userIndex() {
         return "user/index";
     }
+
+
+    @GetMapping("/delete/post/{id}")
+    public String deletePost(@PathVariable String id) {
+        postService.deleteById(id);
+
+        return "/";
+    }
+
 
 }

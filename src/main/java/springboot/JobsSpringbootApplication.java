@@ -24,8 +24,6 @@ public class JobsSpringbootApplication {
 		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
 	}
 
-
-
 	public static void main(String[] args) {
 		SpringApplication.run(JobsSpringbootApplication.class, args);
 	}

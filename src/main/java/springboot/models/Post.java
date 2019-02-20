@@ -19,6 +19,8 @@ public class Post {
         return id;
     }
 
+    public String Id(){ return  id.toString();}
+
     public void setId(Long id) {
         this.id = id;
     }

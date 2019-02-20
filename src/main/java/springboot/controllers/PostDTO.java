@@ -1,8 +1,6 @@
 package springboot.controllers;
-import springboot.models.Post;
 
 import javax.validation.constraints.NotEmpty;
-import java.util.List;
 
 public class PostDTO {
     @NotEmpty

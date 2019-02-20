@@ -1,6 +1,7 @@
 package springboot.services;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,6 @@ import springboot.models.Role;
 import springboot.models.User;
 import springboot.repositories.UserRepository;
 import springboot.controllers.UserRegistrationDTO;
-
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -30,6 +30,11 @@ public class UserServiceImpl implements UserService {
             if(u.getUserName().equals(username))return  u;
         }
         return null;
+    }
+
+    @Override
+    public List<User> listAllUsers() {
+        return userRepository.findAll();
     }
 
     public User save(UserRegistrationDTO registration){

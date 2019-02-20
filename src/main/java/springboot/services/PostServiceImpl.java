@@ -15,6 +15,7 @@ public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
 
+    @Autowired
     public PostServiceImpl(PostRepository postRepository){
         this.postRepository = postRepository;
     }
@@ -27,10 +28,16 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public void deleteById(String id) {
+        postRepository.deleteById(Long.parseLong(id));
+    }
+
+    @Override
     public Post save(PostDTO post) {
         Post p = new Post();
         p.setTopic(post.getTopic());
         p.setText(post.getText());
         return  postRepository.save(p);
     }
+
 }

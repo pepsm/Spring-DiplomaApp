@@ -3,6 +3,9 @@
     padding: 0;
     box-sizing: border-box;
 }
+body{
+    margin-top: 10%;
+}
 .content {
     padding: 1%;
     float: left;
@@ -10,15 +13,58 @@
     text-align: center;
     background-color: #F5CF8E;
 }
+.card
+{
+    background-color: white;
+    padding: 3px;
+    border: 2px;
+    margin-top: 2%;
+}
 .font-group{
     text-align: center;
 }
 .sidebar {
     float: right;
     width: 18%;                 /* Add this */
-    height: 300px;
-    background-color: #F09A9D;
+    height: 500px;
+    background-color: #ffffff;
 }
+
+.sidebar-ul {
+    list-style-type: none;
+    margin: 0;
+    text-align: center;
+    padding: 0;
+    width: 100%;
+    background-color: #f1f1f1;
+}
+
+.sidebar-ul li a {
+    display: block;
+    color: #ffffff;
+    background-color: rgba(76, 76, 76, 0.23);
+    padding: 8px 16px;
+    margin-top: 1px;
+    text-decoration: none;
+}
+
+/* Change the link color on hover */
+.sidebar-ul li a:hover {
+    background-color: rgba(75, 75, 75, 0.87);
+    color: white;
+}
+
+footer {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #353535;
+    color: white;
+    font-family: "Calibri Light";
+    font-size: small;
+    text-align: center;
+}
+
 .post-container{
     background-color: #eeeeee;
     width: 70%;
@@ -26,14 +72,11 @@
     height: 150px;
     margin-bottom: 1%;
 }
+
 .column {
     float: left;
     width: 31%;
     margin: 20px 1.15%;
     height: 160px;
     background-color: #B2D6FF;    /* Medium blue */
-}
-.footer {
-    overflow: hidden;
-    background-color: #D6E9FE;
 }
