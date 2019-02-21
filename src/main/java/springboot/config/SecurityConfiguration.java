@@ -13,7 +13,10 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import springboot.services.PostServiceImpl;
 import springboot.services.UserService;
+import springboot.services.UserServiceImpl;
+import springboot.services.base.PostService;
 
 @Configuration
 @EnableWebSecurity
@@ -45,7 +48,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login?logout")
                 .permitAll();
     }
-
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {

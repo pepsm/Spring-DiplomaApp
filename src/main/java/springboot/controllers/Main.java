@@ -1,20 +1,24 @@
 package springboot.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import springboot.services.UserService;
 import springboot.services.base.PostService;
 
 @Controller
 public class Main {
 
+    @Autowired
+    @Qualifier("postServiceImpl")
     private PostService postService;
 
     @Autowired
-    public Main(PostService postS){
-        this.postService = postS;
-    }
+    @Qualifier("userServiceImpl")
+    private UserService userService;
+
 
     @ModelAttribute("post")
     public PostDTO userRegistrationDto() {
@@ -27,7 +31,7 @@ public class Main {
         return "index";}
 
     @GetMapping("/adminPage")
-    public  String admin(){
+    public  String admin(Model model){
         return "admin";}
 
     @GetMapping("/login")
@@ -47,6 +51,8 @@ public class Main {
 
         return "/";
     }
+
+
 
 
 }

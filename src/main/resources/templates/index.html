@@ -65,6 +65,23 @@
             </div>
         </div>
 
+        <h3>Form with CSRF Token</h3>
+        <form th:action="@{/messages}" method="post">
+            <textarea name="content" cols="50" rows="5"></textarea>
+            <br>
+            <input type="submit" value="Submit" />
+        </form>
+        <div>
+            <br>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Messages
+                </div>
+                <p th:each="msg: ${msgs}" th:text="${msg.content}"></p>
+            </div>
+        </div>
+    </div>
+
     </div>
 </section>
 <div class="container">
