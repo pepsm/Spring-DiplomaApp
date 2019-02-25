@@ -71,13 +71,14 @@
             <br>
             <input type="submit" value="Submit" />
         </form>
+
         <div>
             <br>
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Messages
                 </div>
-                <p th:each="msg: ${msgs}" th:text="${msg.content}"></p>
+                <p th:each="msg: ${messages}" th:text="${msg.content}"></p>
             </div>
         </div>
     </div>

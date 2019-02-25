@@ -16,7 +16,7 @@ import springboot.models.User;
 import springboot.repositories.UserRepository;
 import springboot.controllers.UserRegistrationDTO;
 
-@Service
+@Service("userServiceImpl")
 public class UserServiceImpl implements UserService {
 
     @Autowired
