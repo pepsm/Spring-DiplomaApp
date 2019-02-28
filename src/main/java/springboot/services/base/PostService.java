@@ -11,5 +11,8 @@ public interface PostService {
 
     List<Post> listAllPosts();
     void deleteById(String id);
+    List<Post> listByEmployer(String id);
+    void update(String id,PostDTO post);
+    void closeById(String id);
     Post save(PostDTO post);
 }

@@ -11,7 +11,7 @@
           th:href="@{/webjars/font-awesome/5.7.2/css/all.css}" />
 
     <link rel="stylesheet" type="text/css" href="../static/css/index.css"
-        media="all"  th:href="@{/css/index.css}" />
+          media="all"  th:href="@{/css/index.css}" />
 
     <title>Main </title>
 </head>
@@ -41,48 +41,7 @@
 <section>
 
     <div class='container-fluid'>
-        <div class='sidebar'>
 
-            <ul class="sidebar-ul">
-                <li><a href="/" th:href="@{/posts}">Create Post</a></li>
-                <li> <a href="/" th:href="@{/fileupload}">Upload File</a></li>
-                <li><a href="">Contact</a></li>
-                <li><a href="">About</a></li>
-            </ul>
-
-        </div>
-
-        <div  class="content" th:if="${not #lists.isEmpty(list)}">
-            <div  th:each="p : ${list}">
-                <span th:if="${p.active} == true">
-                    <a th:href="@{|/list/${p.id}|}">
-                    <div class="col-sm-6">
-                            <div class="card">
-                                <h5   class="card-title" th:text="${p.topic}"></h5>
-                                <p class="card-text" th:text="${p.text}"></p>
-                                <a th:href="@{|/post/close/${p.id}|}" class="btn btn-danger">Close</a>
-                            </div>
-                    </div>
-                    </a>
-                </span>
-            </div>
-        </div>
-
-        <form type="hidden" th:action="@{/messages}" method="post">
-            <textarea name="content" cols="50" rows="5"></textarea>
-            <br>
-            <input type="submit" value="Submit" />
-        </form>
-
-        <div>
-            <br>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    Messages
-                </div>
-                <p th:each="msg: ${messages}" th:text="${msg.content}"></p>
-            </div>
-        </div>
     </div>
 
     </div>

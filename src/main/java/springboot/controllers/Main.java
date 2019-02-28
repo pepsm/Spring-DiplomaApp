@@ -1,16 +1,13 @@
 package springboot.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
 import springboot.models.Message;
 import springboot.models.Post;
 import springboot.models.User;
-import springboot.repositories.MessageRepository;
 import springboot.services.MessageService;
 import springboot.services.UserService;
 import springboot.services.base.PostService;
@@ -47,7 +44,7 @@ public class Main {
     @GetMapping("/adminPage")
     public  String admin(Model model){
         model.addAttribute("posts", postService.listAllPosts());
-        return "admin";}
+        return "admin/admin";}
 
     @GetMapping("/login")
     public String login(Model model) {
@@ -63,7 +60,7 @@ public class Main {
     @GetMapping("/post/delete/{id}")
     public String deletePost(@PathVariable String id, HttpServletRequest request) {
         postService.deleteById(id);
-        return "admin";
+        return "admin/admin";
     }
 
     @RequestMapping( value = "/messages", method = POST )

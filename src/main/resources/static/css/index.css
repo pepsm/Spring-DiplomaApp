@@ -13,6 +13,9 @@ body{
     text-align: center;
     background-color: #F5CF8E;
 }
+form{
+    visibility: hidden;
+}
 .card
 {
     background-color: white;

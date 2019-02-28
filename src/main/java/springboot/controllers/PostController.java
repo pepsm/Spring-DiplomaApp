@@ -5,17 +5,14 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import springboot.services.base.PostService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Component
 @Controller
-@RequestMapping("/posts")
 public class PostController {
 
     private PostService postService;
@@ -30,17 +27,34 @@ public class PostController {
         return new PostDTO();
     }
 
-    @GetMapping
+    @GetMapping("/posts")
     public String showCreatePostForm() {
         return "posts";
     }
 
-    @PostMapping
+    @PostMapping("/posts")
     public String savePost(@ModelAttribute("post") @Valid PostDTO postDTO, BindingResult result){
         if(result.hasErrors()){
             return "posts";
         }
         postService.save(postDTO);
-        return "redirect:/posts?success";
+        return "posts";
+    }
+
+    @GetMapping("post/close/{id}")
+    public  String closePost(@PathVariable String id, HttpServletRequest request){
+        postService.closeById(id);
+        return "index";
+    }
+
+    @GetMapping("post/update")
+    public  String updatePostPage(){
+        return "updatePost";
+    }
+
+    @GetMapping("list/{id}")
+    public String listCandidacy(@PathVariable String id, Model model){
+        model.addAttribute("post_id", id);
+        return "listApplications";
     }
 }
