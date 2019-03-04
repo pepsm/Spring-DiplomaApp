@@ -1,6 +1,7 @@
 package springboot.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import springboot.controllers.CandidacyDTO;
 import springboot.models.Candidacy;
 import springboot.models.User;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class CandidacyServiceImpl implements CandidacyService {
 
     @Autowired
@@ -32,6 +34,7 @@ public class CandidacyServiceImpl implements CandidacyService {
     @Override
     public List<User> listApplicants(String id) { //Post id
         List<User> userList = new ArrayList<>();
+
         List<Candidacy> candList = candidacyRepository.findAll();
         Long post_id = Long.parseLong(id);
 

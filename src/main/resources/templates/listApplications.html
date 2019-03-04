@@ -36,6 +36,23 @@
     </nav>
 </header>
 
+<table id="customerTable" class="table">
+    <thead>
+    <tr>
+        <th>No</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="ap: ${cands}">
+        <td th:text="${ap.userName}">Username</td>
+        <td th:text="${ap.email}">Email</td>
+        <td><a>Delete</a></td>
+    </tr>
+    </tbody>
+</table>
 
 <footer>
     <p>Copyright 2009 Your name</p>

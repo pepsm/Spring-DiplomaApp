@@ -6,21 +6,28 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import springboot.models.Candidacy;
+import springboot.models.Post;
+import springboot.models.User;
+import springboot.services.CandidacyService;
+import springboot.services.UserService;
 import springboot.services.base.PostService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 
 @Component
 @Controller
 public class PostController {
 
+    @Autowired
     private PostService postService;
 
     @Autowired
-    public PostController(PostService postS){
-        this.postService = postS;
-    }
+    private UserService userService;
+    @Autowired
+    private CandidacyService candidacyService;
 
     @ModelAttribute("post")
     public PostDTO userRegistrationDto() {
@@ -54,7 +61,20 @@ public class PostController {
 
     @GetMapping("list/{id}")
     public String listCandidacy(@PathVariable String id, Model model){
-        model.addAttribute("post_id", id);
+        model.addAttribute("cands", candidacyService.listApplicants(id));
         return "listApplications";
     }
+
+    @ModelAttribute("users")
+    public List<User> users() {
+        return userService.listAllUsers();
+    }
+
+    @ModelAttribute("posts")
+    public List<Post> posts() {
+        return postService.listAllPosts();
+    }
+
+    @ModelAttribute("applicants")
+    public  List<Candidacy> applicants(){return candidacyService.listAllCand();}
 }

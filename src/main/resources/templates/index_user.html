@@ -41,7 +41,22 @@
 <section>
 
     <div class='container-fluid'>
+        <div  class="content" th:if="${not #lists.isEmpty(posts)}">
 
+            <div  th:each="p : ${posts}">
+                <span th:if="${p.active} == true">
+                    <a th:href="@{|/post/apply/${p.id}|}">
+                    <div class="col-sm-6">
+                            <div class="card">
+                                <h5   class="card-title" th:text="${p.topic}">HEre</h5>
+                                <p class="card-text" th:text="${p.text}"></p>
+                            </div>
+                    </div>
+                    </a>
+                </span>
+            </div>
+
+        </div>
     </div>
 
     </div>

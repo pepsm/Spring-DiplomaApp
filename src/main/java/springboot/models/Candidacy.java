@@ -15,7 +15,6 @@ public class Candidacy {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-
     @ManyToOne
     @JoinColumn
     private Post post_id;
@@ -47,7 +46,6 @@ public class Candidacy {
     public void setId(Integer id) {
         this.id = id;
     }
-
 
     public Post getPost_id() {
         return post_id;

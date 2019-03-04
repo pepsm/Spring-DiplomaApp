@@ -37,6 +37,13 @@ public class PostServiceImpl implements PostService {
         postRepository.deleteById(Long.parseLong(id));
     }
 
+
+    @Override
+    public Post findById(String id) {
+        Optional<Post> p =  postRepository.findById(Long.parseLong(id));
+         return p.get();
+    }
+
     @Override
     public List<Post> listByEmployer(String id) {
          return null;

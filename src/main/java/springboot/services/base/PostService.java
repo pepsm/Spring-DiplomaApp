@@ -14,5 +14,6 @@ public interface PostService {
     List<Post> listByEmployer(String id);
     void update(String id,PostDTO post);
     void closeById(String id);
+    Post findById(String id);
     Post save(PostDTO post);
 }
