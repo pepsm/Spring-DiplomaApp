@@ -1,6 +1,7 @@
 package springboot.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Post {
@@ -13,6 +14,9 @@ public class Post {
     private String topic;
     private String text;
     private boolean active;
+
+    @OneToMany(mappedBy = "post")
+    private List<Candidacy> candidacyList;
 
     public boolean isActive() {
         return active;
@@ -46,6 +50,14 @@ public class Post {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public List<Candidacy> getCandidacyList() {
+        return candidacyList;
+    }
+
+    public void setCandidacyList(List<Candidacy> candidacyList) {
+        this.candidacyList = candidacyList;
     }
 
     public String toString(){

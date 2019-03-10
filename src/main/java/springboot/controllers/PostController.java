@@ -64,6 +64,7 @@ public class PostController {
 
 
         model.addAttribute("cands", candidacyService.listApplicants(id));
+
         return "listApplications";
     }
 

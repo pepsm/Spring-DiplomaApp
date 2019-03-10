@@ -45,14 +45,16 @@
 
             <div  th:each="p : ${posts}">
                 <span th:if="${p.active} == true">
-                    <a th:href="@{|/post/apply/${p.id}|}">
+
+                    <a th:href="@{|/post/view/${p.id}|}">
                     <div class="col-sm-6">
                             <div class="card">
-                                <h5   class="card-title" th:text="${p.topic}">HEre</h5>
+                                <h5   class="card-title" th:text="${p.topic}"></h5>
                                 <p class="card-text" th:text="${p.text}"></p>
                             </div>
                     </div>
                     </a>
+
                 </span>
             </div>
 

@@ -1,9 +1,5 @@
 package springboot.models;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.data.annotation.CreatedDate;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -17,7 +13,7 @@ public class Candidacy {
 
     @ManyToOne
     @JoinColumn
-    private Post post_id;
+    private Post post;
 
     @ManyToOne
     @JoinColumn
@@ -47,12 +43,12 @@ public class Candidacy {
         this.id = id;
     }
 
-    public Post getPost_id() {
-        return post_id;
+    public Post getPost() {
+        return post;
     }
 
-    public void setPost_id(Post post_id) {
-        this.post_id = post_id;
+    public void setPost(Post post) {
+        this.post = post;
     }
 
     public User getUser() {

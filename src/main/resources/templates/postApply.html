@@ -32,11 +32,12 @@
         <div class="col-md-6 col-md-offset-3">
             <h1>Apply for</h1>
 
-            <form th:action="@{|/apply/${cand_id}|}" th:object="${candidacy}" method="post">
-                <p th:text="*{comment}">
-                <p th:text="${candidacy.getPost_id().topic}">
+            <form th:action="@{|/apply/${candidacy.post.id}|}" th:object="${candidacy}" method="post">
+
+                <p th:text="${candidacy.comment}">
+
                 <div class="form-group">
-                <input id="comment" class="form-control" th:field="*{comment}" />
+                    <input id="comment" class="form-control" th:field="*{comment}" />
                 </div>
 
 
@@ -44,7 +45,7 @@
                     <button type="submit" class="btn btn-success">Apply</button>
                 </div>
             </form>
-            
+
         </div>
     </div>
 

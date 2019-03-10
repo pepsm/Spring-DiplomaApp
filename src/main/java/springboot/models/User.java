@@ -3,6 +3,7 @@ package springboot.models;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -18,6 +19,9 @@ public class User {
     private String lastName;
     private String email;
     private String password;
+
+    @OneToMany(mappedBy = "user")
+    private List<Candidacy> candidacyList;
 
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -46,6 +50,22 @@ public class User {
         this.email = email;
         this.password = password;
         this.roles = roles;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public List<Candidacy> getCandidacyList() {
+        return candidacyList;
+    }
+
+    public void setCandidacyList(List<Candidacy> candidacyList) {
+        this.candidacyList = candidacyList;
     }
 
     public Long getId() {

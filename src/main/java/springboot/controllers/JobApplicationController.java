@@ -1,13 +1,10 @@
 package springboot.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import springboot.models.Candidacy;
 import springboot.models.Post;
@@ -16,7 +13,6 @@ import springboot.services.CandidacyService;
 import springboot.services.UserService;
 import springboot.services.base.PostService;
 
-import javax.validation.Valid;
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -39,39 +35,62 @@ public class JobApplicationController {
         return "index_user";
     }
 
-    @RequestMapping("post/apply/{id}")
-    public String applyToPost(@PathVariable String id, Model model){
+    @RequestMapping("/post/view/{id}")
+    public String viewPost(@PathVariable String id, Model model) {
 
-       Candidacy c = new Candidacy();
-       c.setPost_id(postService.findById(id));
+       Post p = postService.findById(id);
 
-       Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-       if (principal instanceof UserDetails) {
-        String username = ((UserDetails)principal).getUsername();
-        User u = userService.findByUsername(username);
-        c.setUser(u);
-       }
+        User user = null;
+        if (principal instanceof UserDetails) {
+            user = userService.findByUsername(((UserDetails)principal).getUsername());
+        }
 
-        c.setComment("Here");
-        candidacyService.save(c);
+        Candidacy cand = null;
 
+        for(Candidacy c : p.getCandidacyList()){
+           if(c.getUser().getUserName().equals(user.getUserName())){
+               cand = c;
+               break;
+           }
+        }
 
-        model.addAttribute("candidacy", c);
+        if (cand == null) {
+            cand = new Candidacy();
+            cand.setPost(p);
+        }
 
-        List<Candidacy> list = candidacyService.listAllCand();
-        model.addAttribute("cand_id", list.get(list.size() - 1).getId().toString());
+        model.addAttribute("candidacy", cand);
 
-        return "postApply";
+       return "postApply";
     }
 
 
-    @PostMapping("apply/{cand_id}")
-    public String applySave(@PathVariable String cand_id, @ModelAttribute("candidacy") Candidacy candidacy){
-            Candidacy c = candidacyService.findById(cand_id);
+    @PostMapping("apply/{id}")
+    public String applySave(@PathVariable("id") String id, @ModelAttribute("candidacy") Candidacy candidacy){
+
+        Integer cId = candidacy.getId();
+
+        if(cId != null){
+            Candidacy c = candidacyService.findById(cId.toString());
             c.setComment(candidacy.getComment());
             candidacyService.updateCand(c);
-            return "index_user";}
+        }else{
+            User user = null;
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            if (principal instanceof UserDetails) {
+                user = userService.findByUsername(((UserDetails)principal).getUsername());
+            }
+            candidacy.setUser(user);
+            Post p = postService.findById(id);
+            candidacy.setPost(p);
+
+
+            candidacyService.save(candidacy);
+        }
+            return "index_user";
+    }
 
     @ModelAttribute("posts")
     public List<Post> posts() {
