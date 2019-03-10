@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
 
     public User findByUsername(String username){
         for (User u : userRepository.findAll()) {
-            if(u.getUserName().equals(username))return  u;
+            if(u.getUserName().equals(username)|| u.getEmail().equals(username))return  u;
         }
         return null;
     }

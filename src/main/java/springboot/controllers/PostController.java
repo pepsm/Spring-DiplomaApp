@@ -61,6 +61,8 @@ public class PostController {
 
     @GetMapping("list/{id}")
     public String listCandidacy(@PathVariable String id, Model model){
+
+
         model.addAttribute("cands", candidacyService.listApplicants(id));
         return "listApplications";
     }
@@ -69,6 +71,7 @@ public class PostController {
     public List<User> users() {
         return userService.listAllUsers();
     }
+
 
     @ModelAttribute("posts")
     public List<Post> posts() {
