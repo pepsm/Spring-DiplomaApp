@@ -40,8 +40,18 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post findById(String id) {
-        Optional<Post> p =  postRepository.findById(Long.parseLong(id));
-         return p.get();
+
+        List<Post> list = postRepository.findAll();
+
+        for (Post p : list){
+            if(p.getId() == Long.parseLong(id))
+            {
+                return p;
+            }
+        }
+
+        return null;
+
     }
 
     @Override

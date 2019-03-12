@@ -2,6 +2,7 @@ package springboot.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,7 +40,6 @@ public class JobApplicationController {
     public String viewPost(@PathVariable String id, Model model) {
 
        Post p = postService.findById(id);
-
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         User user = null;
@@ -48,32 +48,31 @@ public class JobApplicationController {
         }
 
         Candidacy cand = null;
-
+        model.addAttribute("cand_id", -1);
         for(Candidacy c : p.getCandidacyList()){
            if(c.getUser().getUserName().equals(user.getUserName())){
                cand = c;
+               cand.setId(c.getId());
+               model.addAttribute("cand_id", cand.getId());
                break;
            }
         }
 
         if (cand == null) {
             cand = new Candidacy();
+            cand.setId(null);
             cand.setPost(p);
         }
-
         model.addAttribute("candidacy", cand);
-
        return "postApply";
     }
 
 
-    @PostMapping("apply/{id}")
-    public String applySave(@PathVariable("id") String id, @ModelAttribute("candidacy") Candidacy candidacy){
+    @PostMapping("apply/{post_id}/{cand_id}")
+    public String applySave(@PathVariable("post_id") String post_id, @PathVariable("cand_id") String cand_id, @ModelAttribute("candidacy") Candidacy candidacy){
 
-        Integer cId = candidacy.getId();
-
-        if(cId != null){
-            Candidacy c = candidacyService.findById(cId.toString());
+        Candidacy c = candidacyService.findById(Integer.parseInt(cand_id));
+        if(c != null){
             c.setComment(candidacy.getComment());
             candidacyService.updateCand(c);
         }else{
@@ -83,10 +82,8 @@ public class JobApplicationController {
                 user = userService.findByUsername(((UserDetails)principal).getUsername());
             }
             candidacy.setUser(user);
-            Post p = postService.findById(id);
+            Post p = postService.findById(post_id);
             candidacy.setPost(p);
-
-
             candidacyService.save(candidacy);
         }
             return "index_user";

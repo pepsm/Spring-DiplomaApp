@@ -11,7 +11,7 @@ public interface CandidacyService {
     void deleteById(String id);
     List<User> listApplicants(String id);
     Candidacy save(Candidacy cand);
-    Candidacy findById(String id);
+    Candidacy findById(Integer id);
     int getLastCandId(Candidacy cand);
     Candidacy updateCand(Candidacy candidacy);
 }

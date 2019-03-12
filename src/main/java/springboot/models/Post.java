@@ -15,7 +15,7 @@ public class Post {
     private String text;
     private boolean active;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
     private List<Candidacy> candidacyList;
 
     public boolean isActive() {

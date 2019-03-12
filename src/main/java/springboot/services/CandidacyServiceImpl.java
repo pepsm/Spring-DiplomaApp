@@ -31,8 +31,8 @@ public class CandidacyServiceImpl implements CandidacyService {
     }
 
     @Override
-    public Candidacy findById(String id){
-        return candidacyRepository.findById(Integer.parseInt(id));
+    public Candidacy findById(Integer id){
+        return candidacyRepository.findById(id);
     }
 
     @Override

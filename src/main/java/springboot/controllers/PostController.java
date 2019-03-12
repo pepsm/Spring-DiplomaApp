@@ -26,6 +26,7 @@ public class PostController {
 
     @Autowired
     private UserService userService;
+
     @Autowired
     private CandidacyService candidacyService;
 
@@ -61,10 +62,7 @@ public class PostController {
 
     @GetMapping("list/{id}")
     public String listCandidacy(@PathVariable String id, Model model){
-
-
-        model.addAttribute("cands", candidacyService.listApplicants(id));
-
+        model.addAttribute("cands", postService.findById(id).getCandidacyList());
         return "listApplications";
     }
 

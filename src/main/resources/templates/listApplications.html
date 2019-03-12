@@ -42,14 +42,19 @@
         <th>No</th>
         <th>Username</th>
         <th>Email</th>
+        <th>First name</th>
+        <th>Last name</th>
         <th></th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="ap: ${cands}">
-        <td th:text="${ap.userName}">Username</td>
-        <td th:text="${ap.email}">Email</td>
-        <td><a>Delete</a></td>
+    <tr th:each="ap, rowStat: ${cands}">
+        <td th:text="${rowStat.count}">1</td>
+        <td th:text="${ap.getUser().userName}">Username</td>
+        <td th:text="${ap.getUser().email}">Email</td>
+        <td th:text="${ap.getUser().firstName}">First name</td>
+        <td th:text="${ap.getUser().lastName}">Last name</td>
+        <td><a>Reject</a></td>
     </tr>
     </tbody>
 </table>

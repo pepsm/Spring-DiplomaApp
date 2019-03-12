@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css"
-          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}" />
     <link rel="stylesheet" type="text/css"
           th:href="@{/webjars/font-awesome/5.7.2/css/all.css}" />
 
@@ -28,34 +28,35 @@
 <br>
 <div class="container">
 
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <h1>Apply for</h1>
 
-            <form th:action="@{|/apply/${candidacy.post.id}|}" th:object="${candidacy}" method="post">
 
-                <p th:text="${candidacy.comment}">
-
+    <div class="req-contrainer">
+            <h1>Get in Touch</h1>
+            <h5>Please fill the requirements below</h5>
+            <br>
+            <form th:action="@{|/apply/${candidacy.getPost().id}/${cand_id}|}" th:object="${candidacy}" method="post">
+                <label for="comment">Put your comment:</label>
                 <div class="form-group">
-                    <input id="comment" class="form-control" th:field="*{comment}" />
+                        <input id="comment" type="text" class="form-control" th:field="*{comment}" />
                 </div>
 
-
                 <div class="form-group">
+                    <span th:if="${cand_id == -1}">
                     <button type="submit" class="btn btn-success">Apply</button>
+                    </span>
+                    <span th:unless="${cand_id == -1}">
+                        <button type="submit" class="btn btn-danger">Update</button>
+                    </span>
                 </div>
+
             </form>
-
-        </div>
     </div>
-
-
 </div>
 
 <script type="text/javascript"
         th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
 <script type="text/javascript"
-        th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+        th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}"></script>
 
 </body>
 </html>
