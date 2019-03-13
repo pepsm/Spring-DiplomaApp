@@ -7,13 +7,17 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import springboot.models.Candidacy;
+import springboot.models.FileModel;
 import springboot.models.Post;
 import springboot.models.User;
+import springboot.repositories.FileRepository;
 import springboot.services.CandidacyService;
 import springboot.services.UserService;
 import springboot.services.base.PostService;
 
+import java.io.IOException;
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -30,6 +34,9 @@ public class JobApplicationController {
 
     @Autowired
     private CandidacyService candidacyService;
+
+    @Autowired
+    private FileRepository fileRepository;
 
     @RequestMapping( value = "/index_user", method = GET )
     public String index_user(){
@@ -85,6 +92,7 @@ public class JobApplicationController {
             Post p = postService.findById(post_id);
             candidacy.setPost(p);
             candidacyService.save(candidacy);
+
         }
             return "index_user";
     }

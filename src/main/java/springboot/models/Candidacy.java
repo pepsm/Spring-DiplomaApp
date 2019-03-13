@@ -1,7 +1,9 @@
 package springboot.models;
 
 import javax.persistence.*;
+import java.io.File;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "candidacy")
@@ -26,6 +28,7 @@ public class Candidacy {
 
     @Temporal(TemporalType.DATE)
     private java.util.Date creationDate;
+
 
     public Date getCreationDate() {
         return creationDate;
@@ -74,5 +77,6 @@ public class Candidacy {
     public void setState(State state) {
         this.state = state;
     }
+
 }
 

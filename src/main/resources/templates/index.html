@@ -32,39 +32,69 @@
                     <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
                 </ul>
             </div>
+
+
         </div>
     </nav>
 </header>
 
 
-
 <section>
 
     <div class='container-fluid'>
+
+
         <div class='sidebar'>
 
             <ul class="sidebar-ul">
-                <li><a href="/" th:href="@{/posts}">Create Post</a></li>
+                <li><a href="/" th:href="@{/posts}"> Create Post</a></li>
+                <li><a data-toggle="modal" data-target="#exampleModal">Launch demo modal</a></li>
                 <li> <a href="/" th:href="@{/fileupload}">Upload File</a></li>
                 <li><a href="">Contact</a></li>
                 <li><a href="">About</a></li>
             </ul>
-
         </div>
+
 
         <div  class="content" th:if="${not #lists.isEmpty(list)}">
             <div  th:each="p : ${list}">
                 <span th:if="${p.active} == true">
-                    <a th:href="@{|/list/${p.id}|}">
-                    <div class="col-sm-6">
-                            <div class="card">
-                                <h5   class="card-title" th:text="${p.topic}"></h5>
-                                <p class="card-text" th:text="${p.text}"></p>
-                                <a th:href="@{|/post/close/${p.id}|}" class="btn btn-danger">Close</a>
+                    <a id="link-a" th:href="@{|/list/${p.id}|}">
+                            <div class="col-sm-6">
+                                    <div class="card">
+
+                                        <a  type="button" th:href="@{|/post/close/${p.id}|}" class="close"><span aria-hidden="true">&times;</span></a>
+                                        <h5 class="card-title" th:text="${p.topic}"></h5>
+                                        <p class="card-text" th:text="${p.jobType}"></p>
+                                        <p class="card-text" th:text="${p.location}"></p>
+                                    </div>
                             </div>
-                    </div>
                     </a>
                 </span>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+
+                        <h5 class="modal-title" >Create Post</h5>
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+
+                    </div>
+
+
+                    <div class="modal-body">
+                        <input class="form-control">
+                    </div>
+                    <div class="modal-footer">Example</div>
+                </div>
             </div>
         </div>
 
@@ -86,6 +116,7 @@
     </div>
 
     </div>
+
 </section>
 <div class="container">
     <div class='column'></div>

@@ -9,12 +9,13 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    public Post(){}
     private String topic;
-    private String text;
+    private String description;
+    private String location;
+    private String jobType;
     private boolean active;
 
+    public Post(){}
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
     private List<Candidacy> candidacyList;
 
@@ -44,14 +45,6 @@ public class Post {
         this.topic = topic;
     }
 
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
     public List<Candidacy> getCandidacyList() {
         return candidacyList;
     }
@@ -60,11 +53,36 @@ public class Post {
         this.candidacyList = candidacyList;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getJobType() {
+        return jobType;
+    }
+
+    public void setJobType(String jobType) {
+        this.jobType = jobType;
+    }
+
+
     public String toString(){
         return "Post{" +
                 "id=" + id +
                 ", topic=" + topic +
-                ", text=" + text + '\'' +
+                ", description=" + description + '\'' +
                 '}';
     }
 

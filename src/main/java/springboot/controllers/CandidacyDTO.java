@@ -1,6 +1,9 @@
 package springboot.controllers;
 
+import springboot.models.FileModel;
+
 import javax.validation.constraints.NotEmpty;
+import java.io.File;
 
 public class CandidacyDTO {
 
@@ -14,4 +17,5 @@ public class CandidacyDTO {
     public void setComment(String comment) {
         this.comment = comment;
     }
+
 }

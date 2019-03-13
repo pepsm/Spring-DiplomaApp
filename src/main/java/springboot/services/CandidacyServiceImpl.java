@@ -11,6 +11,7 @@ import springboot.repositories.PostRepository;
 import springboot.repositories.UserRepository;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -65,6 +66,7 @@ public class CandidacyServiceImpl implements CandidacyService {
        c.setUser(candidacy.getUser());
        c.setPost(candidacy.getPost());
        c.setState(candidacy.getState());
+       c.setCreationDate(new Date());
        c.setCreationDate(candidacy.getCreationDate());
 
        return candidacyRepository.save(c);
@@ -76,6 +78,7 @@ public class CandidacyServiceImpl implements CandidacyService {
         c.setComment(cand.getComment());
         c.setPost(cand.getPost());
         c.setUser(cand.getUser());
+        c.setCreationDate(new Date());
         c.setState(State.rejected);
         return candidacyRepository.save(c);
     }

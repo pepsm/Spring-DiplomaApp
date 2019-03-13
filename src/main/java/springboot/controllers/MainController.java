@@ -70,6 +70,12 @@ public class MainController {
         return "redirect:/";
     }
 
+
+    @GetMapping("/userSettings")
+    public String userSettings() {
+        return "userSettings";
+    }
+
     @ModelAttribute("users")
     public List<User> users() {
         return userService.listAllUsers();

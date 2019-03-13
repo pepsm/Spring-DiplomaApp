@@ -3,9 +3,11 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 body{
-    margin-top: 10%;
+    margin-top: 6%;
 }
+
 .content {
     padding: 1%;
     float: left;
@@ -13,24 +15,26 @@ body{
     text-align: center;
     background-color: #F5CF8E;
 }
+
 form{
     visibility: hidden;
 }
+
 .card
 {
     background-color: white;
     padding: 3px;
     border: 2px;
     margin-top: 2%;
+    border-radius: 3px;
 }
 .font-group{
     text-align: center;
 }
 .sidebar {
+    position: sticky;
     float: right;
-    width: 18%;                 /* Add this */
-    height: 500px;
-    background-color: #ffffff;
+    width: 18%;
 }
 
 .sidebar-ul {
@@ -51,7 +55,6 @@ form{
     text-decoration: none;
 }
 
-/* Change the link color on hover */
 .sidebar-ul li a:hover {
     background-color: rgba(75, 75, 75, 0.87);
     color: white;
@@ -66,8 +69,9 @@ footer {
     font-family: "Calibri Light";
     font-size: small;
     text-align: center;
-}
+    position: fixed;
 
+}
 .post-container{
     background-color: #eeeeee;
     width: 70%;

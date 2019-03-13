@@ -3,6 +3,7 @@ package springboot.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import springboot.controllers.PostDTO;
+import springboot.models.JobType;
 import springboot.models.Post;
 import springboot.repositories.PostRepository;
 import springboot.repositories.UserRepository;
@@ -65,8 +66,10 @@ public class PostServiceImpl implements PostService {
      if(opt.isPresent())
      {
          Post p = opt.get();
-         p.setText(post.getText());
+         p.setDescription(post.getDescription());
          p.setTopic(post.getTopic());
+         p.setLocation(post.getLocation());
+         p.setJobType(post.getJobType());
      }
     }
 
@@ -81,7 +84,9 @@ public class PostServiceImpl implements PostService {
     public Post save(PostDTO post) {
         Post p = new Post();
         p.setTopic(post.getTopic());
-        p.setText(post.getText());
+        p.setDescription(post.getDescription());
+        p.setJobType(post.getJobType());
+        p.setLocation(post.getLocation());
         p.setActive(true);
         return  postRepository.save(p);
     }

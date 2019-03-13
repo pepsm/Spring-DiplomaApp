@@ -7,7 +7,13 @@ public class PostDTO {
     private String topic;
 
     @NotEmpty
-    private String text;
+    private String description;
+
+    @NotEmpty
+    private String location;
+
+    @NotEmpty
+    private String jobType;
 
     public String getTopic() {
         return topic;
@@ -17,12 +23,27 @@ public class PostDTO {
         this.topic = topic;
     }
 
-    public String getText() {
-        return text;
+    public String getDescription() {
+        return description;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getJobType() {
+        return jobType;
+    }
+
+    public void setJobType(String jobType) {
+        this.jobType = jobType;
+    }
 }

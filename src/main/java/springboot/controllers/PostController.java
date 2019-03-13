@@ -46,13 +46,13 @@ public class PostController {
             return "posts";
         }
         postService.save(postDTO);
-        return "posts";
+        return "redirect:/";
     }
 
     @GetMapping("post/close/{id}")
     public  String closePost(@PathVariable String id, HttpServletRequest request){
         postService.closeById(id);
-        return "index";
+        return "redirect:/";
     }
 
     @GetMapping("post/update")

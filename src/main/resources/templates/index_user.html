@@ -27,7 +27,7 @@
             <div>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Welcome <span sec:authentication="principal.username">User</span></a>
+                        <a class="nav-link" th:href="@{/userSettings}">Welcome <span sec:authentication="principal.username">User</span></a>
                     </li>
                     <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
                 </ul>
@@ -50,7 +50,7 @@
                     <div class="col-sm-6">
                             <div class="card">
                                 <h5   class="card-title" th:text="${p.topic}"></h5>
-                                <p class="card-text" th:text="${p.text}"></p>
+                                <p class="card-text" th:text="${p.description}"></p>
                             </div>
                     </div>
                     </a>

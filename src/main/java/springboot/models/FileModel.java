@@ -2,12 +2,8 @@ package springboot.models;
 
 import springboot.models.audit.DateAudit;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="file_model")
@@ -26,6 +22,9 @@ public class FileModel  extends DateAudit {
     @Lob
     @Column(name="pic")
     private byte[] pic;
+
+
+
 
     public FileModel(){}
 
@@ -66,4 +65,6 @@ public class FileModel  extends DateAudit {
     public void setPic(byte[] pic){
         this.pic = pic;
     }
+
+
 }
