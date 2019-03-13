@@ -1,6 +1,8 @@
 package springboot.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
@@ -13,6 +15,7 @@ import springboot.services.UserService;
 import springboot.services.base.PostService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -72,8 +75,23 @@ public class MainController {
 
 
     @GetMapping("/userSettings")
-    public String userSettings() {
+    public String userSettings(Model model) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            model.addAttribute("user", userService.findByUsername(((UserDetails)principal).getUsername()));
+        }else {
+            return "redirect:/";
+        }
+
         return "userSettings";
+    }
+
+    @PostMapping("/update/user")
+    public String updateUser(@PathParam("user") User user){
+        User u = userService.findByUsername(user.getUserName());
+        userService.update(u.getId().toString(), user);
+
+        return "redirect:/";
     }
 
     @ModelAttribute("users")

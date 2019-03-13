@@ -2,6 +2,7 @@ package springboot.services;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,22 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+
+
+    @Override
+    public void update(String id, User user) {
+        Optional<User> opt = userRepository.findById(Long.parseLong(id));
+        if(opt.isPresent())
+        {
+            User u = opt.get();
+            u.setUserName(user.getUserName());
+            u.setEmail(user.getEmail());
+            u.setFirstName(user.getFirstName());
+            u.setLastName(user.getLastName());
+            u.setPassword(user.getPassword());
+            userRepository.save(u);
+        }
+    }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);

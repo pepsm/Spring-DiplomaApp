@@ -12,5 +12,7 @@ public interface UserService extends UserDetailsService {
 
     List<User> listAllUsers();
 
+    void update(String id, User user);
+
     User save(UserRegistrationDTO registration);
 }

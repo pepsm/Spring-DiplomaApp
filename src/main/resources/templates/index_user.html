@@ -16,22 +16,28 @@
     <title>Main </title>
 </head>
 <body>
+
 <header>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-inverse navbar-fixed-top ">
         <div class="container">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#" th:href="@{/}"><i class="fas fa-wallet"></i>
                     <span>BILLFOLD</span></a>
             </div>
 
+            <div class="navbar-header">
+                <input id="nav-search" class="form-control input-sm " type="search" placeholder="Search" aria-label="Search">
+            </div>
             <div>
                 <ul class="nav navbar-nav navbar-right">
+
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/userSettings}">Welcome <span sec:authentication="principal.username">User</span></a>
+                        <a class="nav-link" th:href="@{/userSettings}"><i class="fas fa-users-cog"></i>   <span sec:authentication="principal.username">User</span></a>
                     </li>
-                    <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+                    <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}"> <i class="fas fa-sign-in-alt"></i> Logout</a></li>
                 </ul>
             </div>
+
         </div>
     </nav>
 </header>
@@ -50,7 +56,9 @@
                     <div class="col-sm-6">
                             <div class="card">
                                 <h5   class="card-title" th:text="${p.topic}"></h5>
-                                <p class="card-text" th:text="${p.description}"></p>
+                                <div class="">
+                                    <p class="card-text" th:text="${p.description}"></p>
+                                </div>
                             </div>
                     </div>
                     </a>
