@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface CandidacyService {
     List<Candidacy> listAllCand();
-    void deleteById(String id);
+    void deleteById(Candidacy c);
     List<User> listApplicants(String id);
     Candidacy save(Candidacy cand);
     Candidacy findById(Integer id);

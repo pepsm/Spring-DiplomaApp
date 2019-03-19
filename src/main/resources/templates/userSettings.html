@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css"
-          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}" />
     <link rel="stylesheet" type="text/css"
           th:href="@{/webjars/font-awesome/5.7.2/css/all.css}" />
 
@@ -38,10 +38,14 @@
 </header>
 
 <main>
-    <div class="container">
-        <h1>User Settings</h1>
-       <img th:src="@{../static/img/ava.png}" src="../static/img/ava.png" alt="Avatar" class="avatar">
-    </div>
+
+
+        <div class="d-inline">
+            <p class="avatar-img"><img th:src="@{/img/ava.png}"  alt="Avatar" class="avatar"></p>
+        </div>
+        <div class="d-inline">
+            <h1>User Settings</h1>
+        </div>
 
     <div class="container-fluid" id="user-set">
         <form th:action="@{/update/user}" th:object="${user}" method="post">

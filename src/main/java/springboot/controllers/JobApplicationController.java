@@ -96,7 +96,12 @@ public class JobApplicationController {
         }
             return "index_user";
     }
+    @RequestMapping("reject/{cand_id}")
+    public String appReject(@PathVariable("cand_id") String cand_id){
 
+        candidacyService.deleteById(candidacyService.findById(Integer.parseInt(cand_id)));
+        return "redirect:/";
+    }
     @ModelAttribute("posts")
     public List<Post> posts() {
         return postService.listAllPosts();

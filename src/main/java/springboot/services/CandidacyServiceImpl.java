@@ -41,8 +41,8 @@ public class CandidacyServiceImpl implements CandidacyService {
         return candidacyRepository.findAll().lastIndexOf(cand);
     }
     @Override
-    public void deleteById(String id) {
-        candidacyRepository.deleteById(Long.parseLong(id));
+    public void deleteById(Candidacy c) {
+        candidacyRepository.delete(c);
     }
 
     @Override
