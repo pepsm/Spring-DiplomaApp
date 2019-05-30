@@ -2,7 +2,7 @@ package springboot.services;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 import springboot.models.User;
-import springboot.controllers.UserRegistrationDTO;
+import springboot.controllers.DTO.UserRegistrationDTO;
 
 import java.util.List;
 

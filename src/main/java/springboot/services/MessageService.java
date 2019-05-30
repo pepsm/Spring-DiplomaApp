@@ -1,8 +1,7 @@
 package springboot.services;
 
-import springboot.controllers.MessageDTO;
+import springboot.controllers.DTO.MessageDTO;
 import springboot.models.Message;
-import springboot.models.Post;
 
 import java.util.List;
 

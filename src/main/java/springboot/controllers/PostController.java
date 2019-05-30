@@ -1,16 +1,18 @@
 package springboot.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import springboot.controllers.dto.PostDTO;
 import springboot.models.Candidacy;
 import springboot.models.Post;
 import springboot.models.User;
-import springboot.services.CandidacyService;
-import springboot.services.UserService;
+import springboot.services.base.CandidacyService;
+import springboot.services.base.UserService;
 import springboot.services.base.PostService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,11 +43,12 @@ public class PostController {
     }
 
     @PostMapping("/posts")
-    public String savePost(@ModelAttribute("post") @Valid PostDTO postDTO, BindingResult result){
+    public String savePost(@ModelAttribute("post") @Valid PostDTO postDTO, BindingResult result, Authentication authentication){
         if(result.hasErrors()){
             return "posts";
         }
-        postService.save(postDTO);
+        User user = userService.findByUsername(authentication.getName());
+        postService.save(postDTO, user);
         return "redirect:/";
     }
 

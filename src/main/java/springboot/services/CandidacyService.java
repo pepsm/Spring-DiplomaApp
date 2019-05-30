@@ -1,6 +1,5 @@
 package springboot.services;
 
-import springboot.controllers.CandidacyDTO;
 import springboot.models.Candidacy;
 import springboot.models.User;
 

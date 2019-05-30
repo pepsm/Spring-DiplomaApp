@@ -1,4 +1,4 @@
-package springboot.controllers;
+package springboot.controllers.dto;
 
 import springboot.matchers.FieldMatch;
 

@@ -1,38 +1,31 @@
 package springboot.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import springboot.models.Message;
+import springboot.controllers.dto.PostDTO;
 import springboot.models.Post;
 import springboot.models.User;
-import springboot.services.MessageService;
-import springboot.services.UserService;
+import springboot.services.base.UserService;
 import springboot.services.base.PostService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
 import java.util.List;
 
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-
 @Controller
 public class MainController {
 
     @Autowired
-//    @Qualifier("postServiceImpl")
     private PostService postService;
 
     @Autowired
-//    @Qualifier("userServiceImpl")
     private UserService userService;
-
-    @Autowired
-    private MessageService messageService;
 
     @ModelAttribute("post")
     public PostDTO userRegistrationDto() {
@@ -40,14 +33,34 @@ public class MainController {
     }
 
     @GetMapping("/")
-    public String root(Model model) {
-        model.addAttribute("list", postService.listAllPosts());
+    public String root(Model model, Authentication authentication) {
+        model.addAttribute("list",
+                userService.listPostsOfUser(
+                        findCurrentUser(authentication).getUsername()
+                ));
         return "index";}
 
-    @GetMapping("/adminPage")
-    public  String admin(Model model){
-        model.addAttribute("posts", postService.listAllPosts());
-        return "admin/admin";}
+
+
+    @GetMapping("/test")
+    public String test(HttpServletRequest request)
+    {
+        int page = 0; //default page number is 0 (yes it is weird)
+        int size = 10; //default page size is 10
+
+        if (request.getParameter("page") != null && !request.getParameter("page").isEmpty()) {
+            page = Integer.parseInt(request.getParameter("page")) - 1;
+        }
+
+        if (request.getParameter("size") != null && !request.getParameter("size").isEmpty()) {
+            size = Integer.parseInt(request.getParameter("size"));
+        }
+        
+        return "test";
+}
+
+
+
 
     @GetMapping("/login")
     public String login(Model model) {
@@ -56,23 +69,15 @@ public class MainController {
 
     @GetMapping("/user")
     public String userIndex() {
-        return "user/index";
+        return "index";
     }
 
 
     @GetMapping("/post/delete/{id}")
     public String deletePost(@PathVariable String id, HttpServletRequest request) {
         postService.deleteById(id);
-        return "admin/admin";
+        return "superuser";
     }
-
-    @RequestMapping( value = "/messages", method = POST )
-    public String MessageSubmit(@ModelAttribute("messages") @Validated MessageDTO messageDTO)
-    {
-        messageService.save(messageDTO);
-        return "redirect:/";
-    }
-
 
     @GetMapping("/userSettings")
     public String userSettings(Model model) {
@@ -104,10 +109,8 @@ public class MainController {
         return postService.listAllPosts();
     }
 
-    @ModelAttribute("messages")
-    public List<Message> messages() {
-        return messageService.listAllMessages();
+
+    public User findCurrentUser(Authentication authentication){
+        return userService.findByUsername(authentication.getName());
     }
-
-
 }

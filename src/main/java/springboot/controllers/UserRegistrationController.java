@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import springboot.controllers.dto.UserRegistrationDTO;
 import springboot.models.User;
-import springboot.services.UserService;
+import springboot.services.base.UserService;
 
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/registration")
 public class UserRegistrationController {
 
     @Autowired
@@ -25,12 +25,12 @@ public class UserRegistrationController {
         return new UserRegistrationDTO();
     }
 
-    @GetMapping
+    @GetMapping("registration")
     public String showRegistrationForm(Model model) {
         return "registration";
     }
 
-    @PostMapping
+    @PostMapping("registration")
     public String registerUserAccount(@ModelAttribute("user") @Valid UserRegistrationDTO userDto,
                                       BindingResult result) {
 
@@ -46,5 +46,4 @@ public class UserRegistrationController {
         userService.save(userDto);
         return "redirect:/registration?success";
     }
-
 }
