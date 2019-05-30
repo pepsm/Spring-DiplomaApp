@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}" />
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/webjars/font-awesome/5.7.2/css/all.css}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/postApply.css"
+          media="all"  th:href="@{/css/postApply.css}" />
+
+    <title>Login</title>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#" th:href="@{/index}">
+                <i class="fas fa-wallet"></i>
+                <span>BILLFOLD</span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<br>
+<br>
+<div class="container">
+
+
+
+    <div class="req-contrainer">
+            <h1>Get in Touch</h1>
+            <h5>Please fill the requirements below</h5>
+            <br>
+            <form th:action="@{|/apply/${candidacy.getPost().id}/${cand_id}|}" th:object="${candidacy}" method="post">
+
+                <label for="comment">Put your comment:</label>
+
+                <div class="form-group">
+                        <input id="comment" type="text" class="form-control" th:field="*{comment}" />
+                </div>
+
+                <div class="form-group" id="button-sbm">
+                    <span th:if="${cand_id == -1}">
+                    <button type="submit" class="btn btn-success">Apply</button>
+                    </span>
+                    <span th:unless="${cand_id == -1}">
+                        <button type="submit" class="btn btn-danger">Update</button>
+                    </span>
+                    <span>
+                        <p class="left-align" th:text="${candidacy.creationDate}"></p>
+                    </span>
+                </div>
+
+            </form>
+    </div>
+</div>
+
+<script type="text/javascript"
+        th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+<script type="text/javascript"
+        th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}"></script>
+
+</body>
+</html>

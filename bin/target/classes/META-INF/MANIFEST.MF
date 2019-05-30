@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: jobs-springboot
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: pepsm
+Implementation-Vendor-Id: springboot
+Build-Jdk: 1.8.0_201
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/jobs-springboot
+Created-By: Maven Integration for Eclipse
+
