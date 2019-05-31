@@ -24,8 +24,11 @@
                     <span>BILLFOLD</span></a>
             </div>
 
-            <div class="navbar-header">
-                <input id="nav-search" class="form-control input-sm " type="search" placeholder="Search" aria-label="Search">
+            <div class="nav navbar-nav nav-tabs-justified">
+                <form class="form-inline my-2 my-lg-0" id="search-form">
+                    <input class="form-control mr-sm-4" type="search" placeholder="Search" aria-label="Search" id="topic">
+                    <button id="btn-search" class="btn btn-outline-success btn-sm btn-danger" type="submit">Search</button>
+                </form>
             </div>
             <div>
                 <ul class="nav navbar-nav navbar-right">
@@ -40,7 +43,6 @@
         </div>
     </nav>
 </header>
-
 
 <section>
 
@@ -104,33 +106,24 @@
                 </div>
             </div>
         </div>
-
-        <form type="hidden" th:action="@{/messages}" method="post">
-            <textarea name="content" cols="50" rows="5"></textarea>
-            <br>
-            <input type="submit" value="Submit" />
-        </form>
-
-        <div>
-            <br>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    Messages
-                </div>
-                <p th:each="msg: ${messages}" th:text="${msg.content}"></p>
-            </div>
-        </div>
     </div>
-
     </div>
 
 </section>
-<div class="container">
+
+<section>
+            <div id="feedback"></div>
+</section>
+<div class="footer-content">
     <div class='column'>
-            <img  src="../static/img/Job.png" class="img"  alt="Card image cap">
+        <img th:src="@{/img/hiring.png}" src="../static/img/hiring.png"  alt="Card image cap">
     </div>
-    <div class='column'></div>
-    <div class='column'></div>
+    <div class='column'>
+        <img th:src="@{/img/devart.jpg}" src="../static/img/devart.jpg"  alt="Card image cap">
+    </div>
+    <div class='column'>
+        <img th:src="@{/img/hiring.png}" src="../static/img/hiring.png"  alt="Card image cap">
+    </div>
 </div>
 
 <footer>
@@ -139,8 +132,6 @@
 
 <script type="text/javascript"
         th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
-<script type="text/javascript"
-        th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
-
+<script th:src="@{/js/main.js}"></script>
 </body>
 </html>

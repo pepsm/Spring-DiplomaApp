@@ -1,38 +1,35 @@
 package springboot.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import springboot.models.Message;
+import org.springframework.web.servlet.ModelAndView;
+import springboot.controllers.dto.PostDTO;
 import springboot.models.Post;
 import springboot.models.User;
-import springboot.services.MessageService;
-import springboot.services.UserService;
+import springboot.services.base.UserService;
 import springboot.services.base.PostService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
 import java.util.List;
-
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 public class MainController {
 
     @Autowired
-//    @Qualifier("postServiceImpl")
     private PostService postService;
 
     @Autowired
-//    @Qualifier("userServiceImpl")
     private UserService userService;
-
-    @Autowired
-    private MessageService messageService;
 
     @ModelAttribute("post")
     public PostDTO userRegistrationDto() {
@@ -40,14 +37,34 @@ public class MainController {
     }
 
     @GetMapping("/")
-    public String root(Model model) {
-        model.addAttribute("list", postService.listAllPosts());
-        return "index";}
+    public String root(Model model, Authentication authentication) {
+        model.addAttribute("list",
+                userService.listPostsOfUser(
+                        findCurrentUser(authentication).getUsername()
+                ));
+        return "index";
+    }
 
-    @GetMapping("/adminPage")
-    public  String admin(Model model){
-        model.addAttribute("posts", postService.listAllPosts());
-        return "admin/admin";}
+    @RequestMapping(value = "/page/{page}")
+    public String listArticlesPageByPage(@PathVariable("page") int page, Model model) {
+
+        PageRequest pageable = PageRequest.of( page - 1, 5);
+
+        Page<Post> postPage = postService.getPaginatedPosts(pageable);
+
+        int totalPages = postPage.getTotalPages();
+        if(totalPages >= 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1,totalPages).boxed().collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
+
+        model.addAttribute("activePostList", true);
+        model.addAttribute("postList", postPage.getContent());
+        return "test";
+    }
+
+
+
 
     @GetMapping("/login")
     public String login(Model model) {
@@ -56,23 +73,15 @@ public class MainController {
 
     @GetMapping("/user")
     public String userIndex() {
-        return "user/index";
+        return "index";
     }
 
 
     @GetMapping("/post/delete/{id}")
     public String deletePost(@PathVariable String id, HttpServletRequest request) {
         postService.deleteById(id);
-        return "admin/admin";
+        return "superuser";
     }
-
-    @RequestMapping( value = "/messages", method = POST )
-    public String MessageSubmit(@ModelAttribute("messages") @Validated MessageDTO messageDTO)
-    {
-        messageService.save(messageDTO);
-        return "redirect:/";
-    }
-
 
     @GetMapping("/userSettings")
     public String userSettings(Model model) {
@@ -104,10 +113,8 @@ public class MainController {
         return postService.listAllPosts();
     }
 
-    @ModelAttribute("messages")
-    public List<Message> messages() {
-        return messageService.listAllMessages();
+
+    public User findCurrentUser(Authentication authentication){
+        return userService.findByUsername(authentication.getName());
     }
-
-
 }

@@ -4,11 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import springboot.models.Candidacy;
 import springboot.models.Post;
-import springboot.models.State;
+import springboot.models.enums.State;
 import springboot.models.User;
 import springboot.repositories.CandidacyRepository;
 import springboot.repositories.PostRepository;
 import springboot.repositories.UserRepository;
+import springboot.services.base.CandidacyService;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,8 +42,8 @@ public class CandidacyServiceImpl implements CandidacyService {
         return candidacyRepository.findAll().lastIndexOf(cand);
     }
     @Override
-    public void deleteById(String id) {
-        candidacyRepository.deleteById(Long.parseLong(id));
+    public void deleteById(Candidacy c) {
+        candidacyRepository.delete(c);
     }
 
     @Override

@@ -25,6 +25,7 @@ public class JobsSpringbootApplication {
 	}
 
 	public static void main(String[] args) {
+		System.setProperty("spring.main.lazy-initialization", "true");
 		SpringApplication.run(JobsSpringbootApplication.class, args);
 	}
 }
