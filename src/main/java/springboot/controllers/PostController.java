@@ -58,9 +58,21 @@ public class PostController {
         return "redirect:/";
     }
 
-    @GetMapping("post/update")
-    public  String updatePostPage(){
-        return "updatePost";
+    @GetMapping("edit/{id}")
+    public String editPost(@PathVariable String id, Model model)
+    {
+        model.addAttribute("post", postService.findById(id));
+        model.addAttribute("id", id);
+        return "editPost";
+    }
+
+    @PostMapping("edit/update/{id}")
+    public  String updatePost(@ModelAttribute("post") @Valid PostDTO postDTO, BindingResult result, @PathVariable String id){
+        if(result.hasErrors()){
+            return "editPost";
+        }
+        postService.update(id, postDTO);
+        return "redirect:/";
     }
 
     @GetMapping("list/{id}")

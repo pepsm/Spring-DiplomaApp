@@ -1,11 +1,9 @@
 package springboot.services;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -54,6 +52,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Post> listPostsOfUser(String username) {
          return findByUsername(username).getPostList();
+    }
+
+    @Override
+    public List<Post> listPostsOfUserPerPage(String username, List<Post> pages) {
+        List<Post> result = new ArrayList<>();
+        for (Post p: pages) {
+            if (p.getUser().getUsername().equals(username))
+                result.add(p);
+        }
+        return result;
     }
 
     public User save(UserRegistrationDTO registration){

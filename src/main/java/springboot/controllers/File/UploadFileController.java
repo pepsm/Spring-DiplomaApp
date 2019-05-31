@@ -44,7 +44,7 @@ public class UploadFileController {
             e.printStackTrace();
         }
 
-        return "index";
+        return "index_test";
     }
 
     @GetMapping("/fileUpload/error")

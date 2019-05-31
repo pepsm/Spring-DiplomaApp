@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import springboot.controllers.dto.PostDTO;
 import springboot.models.Post;
 import springboot.models.User;
@@ -37,19 +36,8 @@ public class MainController {
     }
 
     @GetMapping("/")
-    public String root(Model model, Authentication authentication) {
-        model.addAttribute("list",
-                userService.listPostsOfUser(
-                        findCurrentUser(authentication).getUsername()
-                ));
-        return "index";
-    }
-
-    @RequestMapping(value = "/page/{page}")
-    public String listArticlesPageByPage(@PathVariable("page") int page, Model model) {
-
-        PageRequest pageable = PageRequest.of( page - 1, 5);
-
+    public String root(Model model, Authentication authentication){
+        PageRequest pageable = PageRequest.of( 0, 3);
         Page<Post> postPage = postService.getPaginatedPosts(pageable);
 
         int totalPages = postPage.getTotalPages();
@@ -59,10 +47,27 @@ public class MainController {
         }
 
         model.addAttribute("activePostList", true);
+        List<Post> postList = userService.listPostsOfUserPerPage(authentication.getName(), postPage.getContent());
         model.addAttribute("postList", postPage.getContent());
-        return "test";
+        return "index";
     }
 
+    @RequestMapping(value = "/page/{page}")
+    public String listArticlesPageByPage(@PathVariable("page") int page, Model model, Authentication authentication) {
+
+        PageRequest pageable = PageRequest.of( page - 1, 5);
+
+        Page<Post> postPage = postService.getPaginatedPosts(pageable);
+        int totalPages = postPage.getTotalPages();
+        if(totalPages >= 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1,totalPages).boxed().collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
+
+        model.addAttribute("activePostList", true);
+        model.addAttribute("postList", postPage.getContent());
+        return "index";
+    }
 
 
 
@@ -73,7 +78,7 @@ public class MainController {
 
     @GetMapping("/user")
     public String userIndex() {
-        return "index";
+        return "index_test";
     }
 
 

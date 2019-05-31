@@ -1,5 +1,6 @@
 package springboot.services.base;
 
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import springboot.models.Post;
 import springboot.models.User;
@@ -16,6 +17,8 @@ public interface UserService extends UserDetailsService {
     List<User> listAllUsers();
 
     List<Post> listPostsOfUser(String username);
+
+    List<Post> listPostsOfUserPerPage(String username, List<Post> pages);
 
     void update(String id, User user);
 

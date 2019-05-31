@@ -16,7 +16,7 @@ public interface PostService {
     List<Post> listAllPosts();
     void deleteById(String id);
     List<Post> findByTopic(String topic);
-    List<Post> listByEmployer(String id);
+    List<Post> listByEmployer(String id, List<Post> list);
     void update(String id,PostDTO post);
     void closeById(String id);
     Post findById(String id);

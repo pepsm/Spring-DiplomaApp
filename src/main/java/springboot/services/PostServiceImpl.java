@@ -68,8 +68,15 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> listByEmployer(String id) {
-         return null;
+    public List<Post> listByEmployer(String id, List<Post> list) {
+        List<Post> userPosts = null;
+         for (Post p : list){
+             if(p.getUser().getId().toString().equals(id))
+             {
+                userPosts.add(p);
+             }
+         }
+        return userPosts;
     }
 
     @Override
@@ -83,13 +90,16 @@ public class PostServiceImpl implements PostService {
          p.setLocation(post.getLocation());
          p.setJobType(post.getJobType());
      }
+     postRepository.save(opt.get());
     }
 
     @Override
     public void closeById(String id) {
+        postRepository.deleteById(Long.parseLong(id));
+        /*
        Optional<Post> opt = postRepository.findById(Long.parseLong(id));
        opt.ifPresent(post -> post.setActive(false));
-       postRepository.save(opt.get());
+       postRepository.save(opt.get());*/
     }
 
     @Override
@@ -106,6 +116,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Page<Post> getPaginatedPosts(Pageable pageable) {
+
         return postRepository.findAll(pageable);
     }
 
