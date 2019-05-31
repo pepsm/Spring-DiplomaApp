@@ -19,10 +19,6 @@ public class Post {
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
     private List<Candidacy> candidacyList;
 
-    @ManyToOne
-    @JoinColumn
-    private User user;
-
     public boolean isActive() {
         return active;
     }
@@ -81,13 +77,6 @@ public class Post {
         this.jobType = jobType;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public String toString(){
         return "Post{" +

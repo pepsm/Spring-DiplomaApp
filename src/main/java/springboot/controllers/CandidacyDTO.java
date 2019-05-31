@@ -1,6 +1,9 @@
-package springboot.controllers.dto;
+package springboot.controllers;
+
+import springboot.models.FileModel;
 
 import javax.validation.constraints.NotEmpty;
+import java.io.File;
 
 public class CandidacyDTO {
 

@@ -1,4 +1,4 @@
-package springboot.controllers.dto;
+package springboot.controllers;
 
 import javax.validation.constraints.NotEmpty;
 

@@ -24,11 +24,8 @@
                     <span>BILLFOLD</span></a>
             </div>
 
-            <div class="nav navbar-nav nav-tabs-justified">
-                <form class="form-inline my-2 my-lg-0" id="search-form">
-                    <input class="form-control mr-sm-4" type="search" placeholder="Search" aria-label="Search" id="topic">
-                    <button id="btn-search" class="btn btn-outline-success btn-sm btn-danger" type="submit">Search</button>
-                </form>
+            <div class="navbar-header">
+                <input id="nav-search" class="form-control input-sm " type="search" placeholder="Search" aria-label="Search">
             </div>
             <div>
                 <ul class="nav navbar-nav navbar-right">
@@ -43,6 +40,7 @@
         </div>
     </nav>
 </header>
+
 
 <section>
 
@@ -106,13 +104,26 @@
                 </div>
             </div>
         </div>
-    </div>
+
+        <form type="hidden" th:action="@{/messages}" method="post">
+            <textarea name="content" cols="50" rows="5"></textarea>
+            <br>
+            <input type="submit" value="Submit" />
+        </form>
+
+        <div>
+            <br>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Messages
+                </div>
+                <p th:each="msg: ${messages}" th:text="${msg.content}"></p>
+            </div>
+        </div>
     </div>
 
-</section>
+    </div>
 
-<section>
-            <div id="feedback"></div>
 </section>
 <div class="footer-content">
     <div class='column'>
@@ -132,6 +143,8 @@
 
 <script type="text/javascript"
         th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
-<script th:src="@{/js/main.js}"></script>
+<script type="text/javascript"
+        th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+
 </body>
 </html>

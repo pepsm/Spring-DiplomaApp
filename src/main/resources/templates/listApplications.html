@@ -55,9 +55,10 @@
         <td th:text="${ap.getUser().email}">Email</td>
         <td th:text="${ap.getUser().firstName}">First name</td>
         <td th:text="${ap.getUser().lastName}">Last name</td>
+        <td><a class="btn btn-primary" data-toggle="modal" data-target="#viewModal">View</a></td>
 
         <!-- Modal -->
-        <div class="modal fade" id="viewModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
 
@@ -84,10 +85,6 @@
                 </div>
             </div>
         </div>
-
-
-        <td><a class="btn btn-primary" data-toggle="modal" data-target="#viewModal">View</a></td>
-
 
         <td><a class="btn btn-danger" th:href="@{|/reject/${ap.getId()}|}">Reject</a></td>
     </tr>

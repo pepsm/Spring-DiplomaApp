@@ -1,9 +1,9 @@
 package springboot.models;
 
-import springboot.models.enums.State;
-
 import javax.persistence.*;
+import java.io.File;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "candidacy")

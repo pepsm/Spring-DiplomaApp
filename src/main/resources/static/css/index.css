@@ -35,6 +35,9 @@ body{
     background-color: #bababa;
 }
 
+form{
+    visibility: hidden;
+}
 .form-inline a{
     float: right;
     width: 90px;

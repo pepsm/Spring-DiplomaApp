@@ -12,10 +12,6 @@ public class Message {
     @Column(nullable = false)
     private String content;
 
-    public Message(String mes){
-        this.content = mes;
-    }
-
     public Integer getId() {
         return id;
     }

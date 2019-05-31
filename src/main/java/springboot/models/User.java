@@ -23,9 +23,6 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Candidacy> candidacyList;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Post> postList;
-
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
@@ -69,14 +66,6 @@ public class User {
 
     public void setCandidacyList(List<Candidacy> candidacyList) {
         this.candidacyList = candidacyList;
-    }
-
-    public List<Post> getPostList() {
-        return postList;
-    }
-
-    public void setPostList(List<Post> postList) {
-        this.postList = postList;
     }
 
     public Long getId() {

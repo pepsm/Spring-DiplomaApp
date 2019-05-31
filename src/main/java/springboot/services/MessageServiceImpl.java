@@ -1,9 +1,8 @@
-/*
 package springboot.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import springboot.controllers.dto.MessageDTO;
+import springboot.controllers.MessageDTO;
 import springboot.models.Message;
 import springboot.repositories.MessageRepository;
 
@@ -27,4 +26,3 @@ public class MessageServiceImpl implements MessageService {
         return messageRepository.save(m);
     }
 }
-*/
