@@ -120,4 +120,9 @@ public class PostServiceImpl implements PostService {
         return postRepository.findAll(pageable);
     }
 
+    @Override
+    public Page<Post> getPaginatedPostsofUser(User user, Pageable pageable) {
+        return postRepository.findAllByUser(user, pageable);
+    }
+
 }

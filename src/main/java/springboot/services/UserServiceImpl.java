@@ -55,10 +55,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Post> listPostsOfUserPerPage(String username, List<Post> pages) {
+    public List<Post> listPostsOfUserPerPage(String email, List<Post> pages) {
         List<Post> result = new ArrayList<>();
         for (Post p: pages) {
-            if (p.getUser().getUsername().equals(username))
+            if (p.getUser().getEmail().equals(email))
                 result.add(p);
         }
         return result;

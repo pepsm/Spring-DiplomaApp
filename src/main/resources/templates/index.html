@@ -8,12 +8,15 @@
     <link rel="stylesheet" type="text/css"
           th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
     <link rel="stylesheet" type="text/css"
+          th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css"
           th:href="@{/webjars/font-awesome/5.7.2/css/all.css}" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="../static/css/index.css"
           media="all"  th:href="@{/css/index.css}" />
-
-
     <link rel="stylesheet" type="text/css" href="../static/css/searchForm.css"
           media="all"  th:href="@{/css/searchForm.css}" />
 
@@ -27,8 +30,12 @@
                 <a class="navbar-brand" href="#" th:href="@{/}"><i class="fas fa-wallet"></i>
                     <span>BILLFOLD</span></a>
             </div>
+            <div class="navbar-header">
+                <input id="nav-search"  onkeyup="myFunction()" class="form-control input-sm" type="text" placeholder="Search" aria-label="Search">
+            </div>
             <div>
                 <ul class="nav navbar-nav navbar-right">
+                    <li><a th:href="@{/list/all}"><i class="fas fa-address-book"></i> All </a></li></li>
                     <li><a th:href="@{/posts}"> <i class="fas fa-cube"></i> Create </a></li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/userSettings}"><i class="fas fa-users-cog"></i>   <span sec:authentication="principal.username">User</span></a>
@@ -39,9 +46,8 @@
 
         </div>
     </nav>
+
 </header>
-
-
 
 
 <section>
@@ -49,13 +55,6 @@
 
         <div class="col-md-2"></div>
         <div class="col-md-8">
-            <div class="visible-lg-inline-block">
-                <div class="form-group pull-left">
-                    <input type="text" id="Search" onkeyup="myFunction()" class="search form-control" placeholder="What you looking for?">
-                </div>
-                <span class="counter pull-left"></span>
-            </div>
-
             <div class="bg-danger warning no-result"><i class="fa fa-warning"></i> No result</div>
 
                     <div th:each="p : ${postList}" class="job-list">
@@ -116,7 +115,7 @@
 <script th:src="@{/js/main.js}"></script>
 <script>
     function myFunction() {
-        var input = document.getElementById("Search");
+        var input = document.getElementById("nav-search");
         var filter = input.value.toLowerCase();
         var nodes = document.getElementsByClassName('target');
 

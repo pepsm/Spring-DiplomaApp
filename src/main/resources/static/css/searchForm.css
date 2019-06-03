@@ -6,7 +6,18 @@
     padding:8px;
     color:#ccc;
 }
-
+#Search{
+    width: 600px;
+    border: 0;
+    box-shadow: none;
+    color: rgba(102, 103, 109, 0.46);
+    border-bottom: 1px solid rgba(102, 103, 109, 0.46);
+ }
+#Search:hover{
+    border-bottom: 1px solid #303135;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #303135;
+}
 .job-list{
     margin-top: 10px;
 }

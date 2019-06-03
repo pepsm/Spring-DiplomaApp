@@ -1,7 +1,9 @@
 package springboot.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,8 @@ import springboot.services.base.PostService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 
 @Controller
@@ -30,10 +34,38 @@ public class JobApplicationController {
     @Autowired
     private CandidacyService candidacyService;
 
+
     // logic of the employee
     @GetMapping("/index_user")
-    public String index_user()
-    {
+    public String index_user(Model model, Authentication authentication){
+        PageRequest pageable = PageRequest.of( 0, 12);
+        Page<Post> postPage = postService.getPaginatedPosts(pageable);
+
+        int totalPages = postPage.getTotalPages();
+        if(totalPages >= 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1,totalPages).boxed().collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
+
+        model.addAttribute("activePostList", true);
+        model.addAttribute("postList", postPage.getContent());
+        return "index_user";
+    }
+
+    @RequestMapping(value = "user/page/{page}")
+    public String listArticlesPageByPage(@PathVariable("page") int page, Model model, Authentication authentication) {
+
+        PageRequest pageable = PageRequest.of( page - 1, 12);
+
+        Page<Post> postPage = postService.getPaginatedPosts(pageable);
+        int totalPages = postPage.getTotalPages();
+        if(totalPages >= 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1,totalPages).boxed().collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
+
+        model.addAttribute("activePostList", true);
+        model.addAttribute("postList", postPage.getContent());
         return "index_user";
     }
 
