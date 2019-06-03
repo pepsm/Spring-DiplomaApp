@@ -1,3 +1,6 @@
+Prerequisites
+-------------------
+Maven is written in Java (and primarily used to build Java programs). You need to install the Java SDK (e.g. from [Oracle's download site](https://www.oracle.com/technetwork/java/javase/downloads/index.html)), and you should set the path to System Enviroment variables.
 
 To get the code:
 -------------------
