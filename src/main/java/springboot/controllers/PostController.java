@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import springboot.controllers.dto.PostDTO;
+import springboot.models.DTO.PostDTO;
 import springboot.models.Candidacy;
 import springboot.models.Post;
 import springboot.models.User;

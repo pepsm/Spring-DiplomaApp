@@ -2,10 +2,9 @@ package springboot.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import springboot.controllers.dto.PostDTO;
+import springboot.models.DTO.PostDTO;
 import springboot.models.Post;
 import springboot.models.User;
 import springboot.repositories.PostRepository;

@@ -1,4 +1,4 @@
-package springboot.util;
+package springboot.models;
 
 
 public class FileInfo {

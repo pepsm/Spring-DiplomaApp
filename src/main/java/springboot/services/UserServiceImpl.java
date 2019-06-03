@@ -3,8 +3,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,7 +13,7 @@ import springboot.models.Post;
 import springboot.models.Role;
 import springboot.models.User;
 import springboot.repositories.UserRepository;
-import springboot.controllers.dto.UserRegistrationDTO;
+import springboot.models.DTO.UserRegistrationDTO;
 import springboot.services.base.UserService;
 
 @Service("userServiceImpl")
