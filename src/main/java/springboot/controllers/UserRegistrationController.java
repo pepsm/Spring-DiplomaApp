@@ -7,8 +7,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import springboot.models.DTO.UserRegistrationDTO;
 import springboot.models.User;
+import springboot.services.base.StorageService;
 import springboot.services.base.UserService;
 
 import javax.validation.Valid;
@@ -18,6 +21,9 @@ public class UserRegistrationController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private StorageService storageService;
 
     @ModelAttribute("user")
     public UserRegistrationDTO userRegistrationDto() {
@@ -31,17 +37,19 @@ public class UserRegistrationController {
 
     @PostMapping("registration")
     public String registerUserAccount(@ModelAttribute("user") @Valid UserRegistrationDTO userDto,
-                                      BindingResult result) {
+                                      BindingResult result,   @RequestParam("file") MultipartFile file) {
 
         User existing = userService.findByUsername(userDto.getUserName());
         if (existing != null) {
             result.rejectValue("email", null, "There is already an account registered with that email");
+            return "registration";
         }
 
         if (result.hasErrors()) {
             return "registration";
         }
-
+        storageService.store(file);
+        userDto.setImgName(file.getOriginalFilename());
         userService.save(userDto);
         return "redirect:/registration?success";
     }

@@ -43,9 +43,14 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
 
-            <h1>Create Post</h1>
+            <h1>Update Post</h1>
+            <br>
+            <form th:action="@{|/edit/update/${id}|}"  enctype="multipart/form-data" th:object="${post}" method="post">
 
-            <form th:action="@{|/edit/update/${id}|}" th:object="${post}" method="post">
+                <div class="form-group">
+                    <label for="img">Image</label>
+                    <input id="img" type="file" name="file" />
+                </div>
 
                 <div class="form-group">
                     <label for="topic" class="control-label">Topic</label>

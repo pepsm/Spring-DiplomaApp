@@ -88,6 +88,7 @@ public class PostServiceImpl implements PostService {
          p.setTopic(post.getTopic());
          p.setLocation(post.getLocation());
          p.setJobType(post.getJobType());
+         p.setImgName(post.getImgName());
      }
      postRepository.save(opt.get());
     }
@@ -109,6 +110,7 @@ public class PostServiceImpl implements PostService {
         p.setJobType(post.getJobType());
         p.setLocation(post.getLocation());
         p.setActive(true);
+        p.setImgName(post.getImgName());
         p.setUser(user);
         return  postRepository.save(p);
     }

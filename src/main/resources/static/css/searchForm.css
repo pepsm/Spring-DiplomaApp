@@ -21,6 +21,7 @@
 .job-list{
     margin-top: 10px;
 }
+
 .job-list .list-view{
     width: 100%;
     padding: 20px;
@@ -42,11 +43,12 @@
     text-decoration: none;
 }
 
-.job-list .list-view img {
+.list-view span img {
     display: inline-block;
     margin: 2px 15px 2px 0;
-    width: 50px;
+    width: 80px;
     vertical-align: top;
+    border-radius: 1px;
 }
 
 .warning{

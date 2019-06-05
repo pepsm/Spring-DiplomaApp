@@ -19,7 +19,6 @@
     <title>Main </title>
 </head>
 <body>
-
 <header>
     <nav class="navbar navbar-inverse navbar-fixed-top ">
         <div class="container">
@@ -49,13 +48,9 @@
 
 <section>
     <div class="row" th:fragment="post-list" th:if="${postList != null && !postList.isEmpty()}">
-
         <div class="col-md-2"></div>
         <div class="col-md-8">
-
             <div class="bg-danger warning no-result"><i class="fa fa-warning"></i> No result</div>
-
-
             <div th:each="p : ${postList}" class="job-list">
 
             <a style="text-decoration: none; color: black;" th:href="@{|/post/view/${p.id}|}">
@@ -79,34 +74,22 @@
                 </div>
             </a>
         </div>
-        </div>
-    </div>
-
-<!--
-   <div class='container-fluid'>
-        <div  class="content" th:if="${not #lists.isEmpty(posts)}">
-
-            <div  th:each="p : ${posts}">
-                <span th:if="${p.active} == true">
-
-                    <a th:href="@{|/post/view/${p.id}|}">
-                    <div class="col-sm-6">
-                            <div class="card">
-                                <h5   class="card-title" th:text="${p.topic}"></h5>
-                                <div class="">
-                                    <p class="card-text" th:text="${p.description}"></p>
-                                </div>
-                            </div>
-                    </div>
-                    </a>
-
-                </span>
+            <div class="row" th:fragment="pagination">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <nav aria-label="Pagination">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item" th:each="pageNumber : ${pageNumbers}" >
+                                <a class="page-link" th:href="@{|/page/${pageNumber}|}" th:text="${pageNumber}">1</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-md-2"></div>
             </div>
-
         </div>
+        <div class="col-md-2"></div>
     </div>
--->
-
 </section>
 
 <footer>
@@ -141,8 +124,6 @@
         else {$('.no-result').hide();}
     }
 </script>
-
-
 
 </body>
 </html>

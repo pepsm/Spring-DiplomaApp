@@ -56,6 +56,7 @@ public class MySimpleUrlAuthenticationSuccessHandler implements AuthenticationSu
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 
         for (GrantedAuthority grantedAuthority : authorities) {
+
             if (grantedAuthority.getAuthority().equals("STAFF")) {
                 isUser = true;
                 break;

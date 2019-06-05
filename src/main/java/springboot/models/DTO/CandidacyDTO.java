@@ -1,5 +1,6 @@
 package springboot.models.DTO;
 
+
 import javax.validation.constraints.NotEmpty;
 
 public class CandidacyDTO {

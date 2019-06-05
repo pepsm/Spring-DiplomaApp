@@ -32,12 +32,16 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    @Override
+    public User findById(String id) {
+        return userRepository.findById(Long.parseLong(id)).get();
+    }
+
     public List<User> findByUserNameOrEmail(String username) {
 
         List<User> result = userRepository.findAll().stream()
                 .filter(x -> x.getUsername().equalsIgnoreCase(username))
                 .collect(Collectors.toList());
-
         return result;
 
     }
@@ -70,13 +74,13 @@ public class UserServiceImpl implements UserService {
         user.setEmail(registration.getEmail());
         user.setPassword(passwordEncoder.encode(registration.getPassword()));
         user.setRoles(Arrays.asList(new Role(registration.getRole())));
+        user.setDeleted(false);
+        user.setImgName(registration.getImgName());
         return userRepository.save(user);
     }
 
-
-
     @Override
-    public void update(String id, User user) {
+    public void update(String id, User user, String filename) {
         Optional<User> opt = userRepository.findById(Long.parseLong(id));
         if(opt.isPresent())
         {
@@ -86,8 +90,15 @@ public class UserServiceImpl implements UserService {
             u.setFirstName(user.getFirstName());
             u.setLastName(user.getLastName());
             u.setPassword(passwordEncoder.encode(user.getPassword()));
+            u.setImgName(filename);
             userRepository.save(u);
         }
+    }
+
+    @Override
+    public void delete(User user) {
+        user.setDeleted(true);
+        userRepository.save(user);
     }
 
 

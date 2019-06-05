@@ -115,6 +115,12 @@
 				<version>1.9.3</version>
 			</dependency>
 
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-configuration-processor</artifactId>
+				<optional>true</optional>
+			</dependency>
+
             <!-- Apache Commons FileUpload -->
             <dependency>
                 <groupId>commons-fileupload</groupId>

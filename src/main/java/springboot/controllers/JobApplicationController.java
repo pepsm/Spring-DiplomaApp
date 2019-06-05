@@ -8,11 +8,17 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import springboot.models.Candidacy;
+import springboot.models.File;
 import springboot.models.Post;
 import springboot.models.User;
 import springboot.services.base.CandidacyService;
+import springboot.services.base.StorageService;
 import springboot.services.base.UserService;
 import springboot.services.base.PostService;
 
@@ -34,6 +40,9 @@ public class JobApplicationController {
     @Autowired
     private CandidacyService candidacyService;
 
+    @Autowired
+    private StorageService storageService;
+
 
     // logic of the employee
     @GetMapping("/index_user")
@@ -52,30 +61,14 @@ public class JobApplicationController {
         return "index_user";
     }
 
-    @RequestMapping(value = "user/page/{page}")
-    public String listArticlesPageByPage(@PathVariable("page") int page, Model model, Authentication authentication) {
-
-        PageRequest pageable = PageRequest.of( page - 1, 12);
-
-        Page<Post> postPage = postService.getPaginatedPosts(pageable);
-        int totalPages = postPage.getTotalPages();
-        if(totalPages >= 0) {
-            List<Integer> pageNumbers = IntStream.rangeClosed(1,totalPages).boxed().collect(Collectors.toList());
-            model.addAttribute("pageNumbers", pageNumbers);
-        }
-
-        model.addAttribute("activePostList", true);
-        model.addAttribute("postList", postPage.getContent());
-        return "index_user";
-    }
 
     @GetMapping("/post/view/{id}")
-    public String viewPost(@PathVariable String id, Model model) {
+    public String viewPost(@PathVariable String id, Model model, Authentication authentication) {
 
        Post p = postService.findById(id);
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        User user = null;
+            User user = null;
         if (principal instanceof UserDetails) {
             user = userService.findByUsername(((UserDetails)principal).getUsername());
         }
@@ -96,17 +89,38 @@ public class JobApplicationController {
             cand.setId(null);
             cand.setPost(p);
         }
+
+        String filename = storageService.findFilenameByUserCand(userService.findByUsername(authentication.getName()), cand.getId());
+
+        if(filename != null) {
+            model.addAttribute("files", storageService.loadByFileName(filename)
+                    .map(
+                            path -> MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
+                                    "serveFile", path.getFileName().toString()).build().toString())
+                    .collect(Collectors.toList()));
+        }else model.addAttribute("files", null);
+
         model.addAttribute("candidacy", cand);
        return "postApply";
     }
 
     @PostMapping("apply/{post_id}/{cand_id}")
-    public String applySave(@PathVariable("post_id") String post_id, @PathVariable("cand_id") String cand_id, @ModelAttribute("candidacy") Candidacy candidacy){
+    public String applySave(@PathVariable("post_id") String post_id,
+                            @PathVariable("cand_id") String cand_id,
+                            @ModelAttribute("candidacy") Candidacy candidacy,
+                            @RequestParam("file") MultipartFile file, Authentication authentication){
+
+        storageService.store(file);
 
         Candidacy c = candidacyService.findById(Integer.parseInt(cand_id));
+
         if(c != null){
             c.setComment(candidacy.getComment());
             candidacyService.updateCand(c);
+            storageService.deleteByUser(userService.findByUsername(authentication.getName()));
+            storageService.save(StringUtils.cleanPath(file.getOriginalFilename()),
+                    StringUtils.cleanPath(file.getContentType()),
+                    userService.findByUsername(authentication.getName()),Integer.parseInt(cand_id));
         }else{
             User user = null;
             Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -116,10 +130,22 @@ public class JobApplicationController {
             candidacy.setUser(user);
             Post p = postService.findById(post_id);
             candidacy.setPost(p);
-            candidacyService.save(candidacy);
 
+
+            Candidacy cand_ = candidacyService.save(candidacy);
+
+            storageService.deleteByUser(userService.findByUsername(authentication.getName()));
+            storageService.save(StringUtils.cleanPath(file.getOriginalFilename()),
+                    StringUtils.cleanPath(file.getContentType()), userService.findByUsername(authentication.getName()),cand_.getId());
         }
-            return "index_user";
+
+            return "redirect:/index_user";
+    }
+
+    @GetMapping("close/{cand_id}")
+    public String candClose(@PathVariable("cand_id") String cand_id){
+        candidacyService.deleteById(candidacyService.findById(Integer.parseInt(cand_id)));
+        return "redirect:/user_index";
     }
 
     // employer
@@ -130,9 +156,40 @@ public class JobApplicationController {
         return "redirect:/";
     }
 
+
+    @GetMapping("approve/{cand_id}")
+    public String appApprove(@PathVariable("cand_id") String cand_id){
+
+        for (Candidacy c : candidacyService.listAllCand()) {
+            if(c.getId() != Integer.parseInt(cand_id))
+                candidacyService.deleteById(c);
+        }
+
+        return "redirect:/";
+    }
+
+
     @ModelAttribute("posts")
     public List<Post> posts() {
         return postService.listAllPosts();
     }
+
+    @RequestMapping(value = "user/page/{page}")
+    public String listArticlesPageByPage(@PathVariable("page") int page, Model model, Authentication authentication) {
+
+        PageRequest pageable = PageRequest.of( page - 1, 12);
+
+        Page<Post> postPage = postService.getPaginatedPosts(pageable);
+        int totalPages = postPage.getTotalPages();
+        if(totalPages >= 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1,totalPages).boxed().collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
+
+        model.addAttribute("activePostList", true);
+        model.addAttribute("postList", postPage.getContent());
+        return "index_user";
+    }
+
 
 }

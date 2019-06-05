@@ -37,6 +37,8 @@ public class UserRegistrationDTO {
     @AssertTrue
     private Boolean terms;
 
+    private String imgName;
+
     public String getFirstName() {
         return firstName;
     }
@@ -83,6 +85,14 @@ public class UserRegistrationDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getImgName() {
+        return imgName;
+    }
+
+    public void setImgName(String imgName) {
+        this.imgName = imgName;
     }
 
     public String getRole() {

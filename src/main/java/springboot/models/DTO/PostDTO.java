@@ -15,6 +15,8 @@ public class PostDTO {
     @NotEmpty
     private String jobType;
 
+    private String imgName;
+
     public String getTopic() {
         return topic;
     }
@@ -33,6 +35,14 @@ public class PostDTO {
 
     public String getLocation() {
         return location;
+    }
+
+    public String getImgName() {
+        return imgName;
+    }
+
+    public void setImgName(String imgName) {
+        this.imgName = imgName;
     }
 
     public void setLocation(String location) {

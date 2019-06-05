@@ -14,6 +14,7 @@ public class Post {
     private String location;
     private String jobType;
     private boolean active;
+    private String imgName;
 
     public Post(){}
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
@@ -67,6 +68,14 @@ public class Post {
 
     public String getLocation() {
         return location;
+    }
+
+    public String getImgName() {
+        return imgName;
+    }
+
+    public void setImgName(String imgName) {
+        this.imgName = imgName;
     }
 
     public void setLocation(String location) {

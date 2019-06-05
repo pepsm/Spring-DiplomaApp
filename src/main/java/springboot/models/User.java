@@ -1,5 +1,7 @@
 package springboot.models;
 
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
@@ -8,6 +10,7 @@ import java.util.Set;
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "username"))
+@Where(clause="is_deleted=0")
 public class User {
 
     @Id
@@ -19,6 +22,11 @@ public class User {
     private String lastName;
     private String email;
     private String password;
+
+    private String imgName;
+
+    @Column(name="is_deleted")
+    private boolean isDeleted;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Candidacy> candidacyList;
@@ -79,6 +87,14 @@ public class User {
         this.postList = postList;
     }
 
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
     public Long getId() {
         return id;
     }
@@ -105,6 +121,14 @@ public class User {
 
     public String getLastName() {
         return lastName;
+    }
+
+    public String getImgName() {
+        return imgName;
+    }
+
+    public void setImgName(String imgName) {
+        this.imgName = imgName;
     }
 
     public void setLastName(String lastName) {
@@ -144,7 +168,8 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + "*********" + '\'' +
-                ", roles=" + roles +
+                ", roles=" + roles + '\'' +
+                ", isDeleted=" + isDeleted +
                 '}';
     }
 }

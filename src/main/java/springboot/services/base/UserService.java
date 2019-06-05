@@ -11,6 +11,8 @@ public interface UserService extends UserDetailsService {
 
     User findByUsername(String username);
 
+    User findById(String id);
+
     List<User> findByUserNameOrEmail(String username);
 
     List<User> listAllUsers();
@@ -19,7 +21,9 @@ public interface UserService extends UserDetailsService {
 
     List<Post> listPostsOfUserPerPage(String username, List<Post> pages);
 
-    void update(String id, User user);
+    void update(String id, User user, String filename);
+
+    void delete(User user);
 
     User save(UserRegistrationDTO registration);
 }

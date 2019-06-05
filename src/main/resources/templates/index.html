@@ -19,7 +19,6 @@
           media="all"  th:href="@{/css/index.css}" />
     <link rel="stylesheet" type="text/css" href="../static/css/searchForm.css"
           media="all"  th:href="@{/css/searchForm.css}" />
-
     <title>Main </title>
 </head>
 <body>
@@ -56,13 +55,12 @@
         <div class="col-md-2"></div>
         <div class="col-md-8">
             <div class="bg-danger warning no-result"><i class="fa fa-warning"></i> No result</div>
-
-                    <div th:each="p : ${postList}" class="job-list">
+            <div th:each="p : ${postList}" class="job-list">
 
                         <a style="text-decoration: none; color: black;" th:href="@{|/list/${p.id}|}">
                             <div class="list-view">
                                 <span>
-                                    <img th:src="@{/img/n.png}" th:alt="icon">
+                                    <img th:src="@{${'/uploads/'+ p.imgName}}" th:alt="icon">
                                 </span>
 
                                      <div class="list-info target">
@@ -73,6 +71,7 @@
                                         <div class="job-icons">
                                             <span><i class="fa fa-briefcase"></i> <span th:text="${p.jobType}"></span></span>
                                             <span><i class="far fa-compass"></i> <span th:text="${p.location}"></span></span>
+                                            <span class="active"><i class="fas fa-user-clock"></i></i> <span th:text="${p.candidacyList.size()}"></span></span>
                                             <div class="pull-right btn-wrap">
                                                 <a id="btn-fl" type="button" class="btn btn-danger btn-sm" th:href="@{|/post/close/${p.id}|}" >Close</a>
                                                 <a id="btn-f2" type="button" class="btn btn-warning btn-sm" th:href="@{|/edit/${p.id}|}" > Edit </a>
@@ -83,8 +82,6 @@
                             </div>
                         </a>
                     </div>
-
-
             <div class="row" th:fragment="pagination">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">

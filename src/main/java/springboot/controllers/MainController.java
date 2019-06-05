@@ -9,9 +9,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import springboot.models.DTO.PostDTO;
 import springboot.models.Post;
 import springboot.models.User;
+import springboot.services.base.StorageService;
 import springboot.services.base.UserService;
 import springboot.services.base.PostService;
 
@@ -29,6 +31,9 @@ public class MainController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private StorageService storageService;
 
     @ModelAttribute("post")
     public PostDTO userRegistrationDto() {
@@ -127,6 +132,7 @@ public class MainController {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
             model.addAttribute("user", userService.findByUsername(((UserDetails)principal).getUsername()));
+            model.addAttribute("user_id", userService.findByUsername(((UserDetails)principal).getUsername()).getId());
         }else {
             return "redirect:/";
         }
@@ -134,10 +140,17 @@ public class MainController {
         return "userSettings";
     }
 
+    @RequestMapping("/delete")
+    public String deleteUser(Authentication authentication) {
+        userService.delete(userService.findByUsername(authentication.getName()));
+        return "redirect:/logout";
+    }
+
     @PostMapping("/update/user")
-    public String updateUser(@PathParam("user") User user){
+    public String updateUser(@PathParam("user") User user,  @RequestParam("file") MultipartFile file){
+        storageService.store(file);
         User u = userService.findByUsername(user.getUserName());
-        userService.update(u.getId().toString(), user);
+        userService.update(u.getId().toString(), user, file.getOriginalFilename());
 
         return "redirect:/";
     }

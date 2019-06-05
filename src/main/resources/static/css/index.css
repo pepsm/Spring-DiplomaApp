@@ -140,9 +140,47 @@ footer {
     width: 31%;
     margin: 20px 1.15%;
     height: 200px;
-    background-color: #B2D6FF;    /* Medium blue */
+    background-color: #B2D6FF;
 }
-.column img{
-    width: 100%;
-    height: 200px;
+
+.modal-body,  span.a{
+    display: inline-block;
+    padding: 5px;
+}
+
+.modal-body span.b{
+    padding-left: 5px;
+}
+.container-fluid span.a{
+    display: inline-block;
+    padding: 5px;
+}
+
+.container-fluid span.b{
+    padding-left: 5px;
+}
+article .c{
+    display: inline-block;
+    text-align: center;
+    width: 70%;
+    padding: 5px;
+}
+
+#application{
+    margin-top: 15%;
+    margin-left: 5%;
+    margin-right: 5%;
+    padding: 10px;
+    box-shadow: 5px 5px 5px 5px #d7d7d7;
+    border-radius: 5px;
+    color: #353535;
+}
+#application:hover{
+    background-color: #fcfcfc;
+}
+.job-icons .active{
+    color: #039364;
+}
+.job-icons .active:hover{
+    color: #d28338;
 }
