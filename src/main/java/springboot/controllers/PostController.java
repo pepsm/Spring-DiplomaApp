@@ -59,13 +59,14 @@ public class PostController {
         postDTO.setImgName(file.getOriginalFilename());
         User user = userService.findByUsername(authentication.getName());
         postService.save(postDTO, user);
-        return "redirect:/";
+        return "redirect:/index";
     }
+
 
     @GetMapping("post/close/{id}")
     public  String closePost(@PathVariable String id, HttpServletRequest request){
         postService.closeById(id);
-        return "redirect:/";
+        return "redirect:/index";
     }
 
     @GetMapping("edit/{id}")
@@ -84,7 +85,7 @@ public class PostController {
         storageService.store(file);
         postDTO.setImgName(file.getOriginalFilename());
         postService.update(id, postDTO);
-        return "redirect:/";
+        return "redirect:/index";
     }
 
     @GetMapping("list/{id}")

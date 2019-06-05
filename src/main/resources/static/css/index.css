@@ -147,7 +147,26 @@ footer {
     display: inline-block;
     padding: 5px;
 }
-
+ul li .active{
+    font-size: 20px;
+    color: #ffad42;
+}
+ul li .active:hover{
+    font-size: 20px;
+    color: #fffca2;
+}
+.navbar{
+    background-color: #2e2e2e;
+}
+.navbar .container a:not(.active){
+    color: rgba(222, 222, 222, 0.96);
+}
+.navbar .container a:not(.active):hover{
+    color: white;
+}
+.navbar-nav>li>a:hover{
+    background-color: #2e2e2e;
+}
 .modal-body span.b{
     padding-left: 5px;
 }

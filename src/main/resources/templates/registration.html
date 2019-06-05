@@ -103,8 +103,8 @@
                 <div class="form-group"  th:classappend="${#fields.hasErrors('role')}? 'has-error':''">
                     <label for="role" >Select role:</label>
                     <select class="form-control" name="role" id="role" th:field="*{role}">
-                        <option th:value="${'EMPLOYER'}">EMPLOYER</option>
-                        <option th:value="${'STAFF'}">STAFF</option>
+                        <option th:value="${'ROLE_EMPLOYER'}">EMPLOYER</option>
+                        <option th:value="${'ROLE_STAFF'}">STAFF</option>
                     </select>
                 </div>
                 <div class="form-group"

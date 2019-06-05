@@ -40,8 +40,8 @@ public class MainController {
         return new PostDTO();
     }
 
-    @GetMapping("/")
-    public String root(Model model, Authentication authentication){
+    @GetMapping("/index")
+    public String index(Model model, Authentication authentication){
 
         PageRequest pageable = PageRequest.of( 0, 3);
         Page<Post> postPage = postService.getPaginatedPostsofUser(userService.findByUsername(authentication.getName()),pageable);
@@ -57,7 +57,10 @@ public class MainController {
         model.addAttribute("postList", postPage.getContent());
         return "index";
     }
-
+    @GetMapping("/")
+    public String root(){
+        return "redirect:/index";
+    }
     @GetMapping("/page/{page}")
     public String listArticlesPageByPage(@PathVariable("page") int page, Model model, Authentication authentication) {
 
@@ -134,7 +137,7 @@ public class MainController {
             model.addAttribute("user", userService.findByUsername(((UserDetails)principal).getUsername()));
             model.addAttribute("user_id", userService.findByUsername(((UserDetails)principal).getUsername()).getId());
         }else {
-            return "redirect:/";
+            return "redirect:/index";
         }
 
         return "userSettings";
@@ -152,7 +155,7 @@ public class MainController {
         User u = userService.findByUsername(user.getUserName());
         userService.update(u.getId().toString(), user, file.getOriginalFilename());
 
-        return "redirect:/";
+        return "redirect:/index";
     }
 
     @ModelAttribute("users")

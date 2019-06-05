@@ -51,6 +51,6 @@ public class UserRegistrationController {
         storageService.store(file);
         userDto.setImgName(file.getOriginalFilename());
         userService.save(userDto);
-        return "redirect:/registration?success";
+        return "redirect:/login?success";
     }
 }

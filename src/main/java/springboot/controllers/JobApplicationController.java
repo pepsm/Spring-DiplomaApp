@@ -153,7 +153,7 @@ public class JobApplicationController {
     public String appReject(@PathVariable("cand_id") String cand_id){
 
         candidacyService.deleteById(candidacyService.findById(Integer.parseInt(cand_id)));
-        return "redirect:/";
+        return "redirect:/index";
     }
 
 
@@ -165,7 +165,7 @@ public class JobApplicationController {
                 candidacyService.deleteById(c);
         }
 
-        return "redirect:/";
+        return "redirect:/index";
     }
 
 

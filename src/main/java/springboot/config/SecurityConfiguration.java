@@ -20,12 +20,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder authenticationMgr) throws Exception {
+        authenticationMgr.inMemoryAuthentication()
+                .withUser("admin").password("admin").authorities("ROLE_ADMIN");
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
                 .authorizeRequests()
+                .antMatchers("/index_user").access("hasRole('ROLE_STAFF')")
+                .antMatchers("/index").access("hasRole('EMPLOYER')")
                 .antMatchers(
                         "/registration**",
                         "/js/**",
@@ -44,7 +51,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .clearAuthentication(true)
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/login?logout")
-                .permitAll();
+                .permitAll()
+        ;
     }
 
     @Bean
