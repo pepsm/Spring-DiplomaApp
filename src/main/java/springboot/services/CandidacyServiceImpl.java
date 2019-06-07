@@ -14,6 +14,7 @@ import springboot.services.base.CandidacyService;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CandidacyServiceImpl implements CandidacyService {
@@ -71,6 +72,29 @@ public class CandidacyServiceImpl implements CandidacyService {
        c.setCreationDate(candidacy.getCreationDate());
 
        return candidacyRepository.save(c);
+    }
+
+    @Override
+    public boolean getState(String post_id, String user_id) {
+        for (Candidacy c : candidacyRepository.findAll()){
+            if(c.getUser().getId().toString().equalsIgnoreCase(user_id) &&
+            c.getPost().getId().toString().equalsIgnoreCase(post_id)){
+                 if(c.getState() == State.approved){ return true; }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public int getApprovedCount(String user_id) {
+        return candidacyRepository.findAll().stream()
+                .filter(c -> c.getState() == State.approved && c.getUser()
+                        .getId().toString().equalsIgnoreCase(user_id)).collect(Collectors.toList()).size();
+    }
+
+    @Override
+    public boolean StateToBool(State st) {
+        return st.toString().equalsIgnoreCase("approved")? true : false;
     }
 
     @Override

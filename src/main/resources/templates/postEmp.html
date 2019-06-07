@@ -45,8 +45,16 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-
             <h1>Create Post</h1>
+            <div class="col-md-2"></div>
+            <div class="col-md-8"></div>
+            <div class="col-md-2">
+                <span th:unless="${post_id == null}">
+                    <a type="button" class="btn btn-danger btn-sm" th:href="@{|/delete/post/emp/${post_id}|}" > Delete </a>
+                </span>
+            </div>
+
+            <div class="row"></div>
 
             <form th:action="@{/create/post/emp}" th:object="${postdto}"  enctype="multipart/form-data" method="post">
                 <div class="form-group">

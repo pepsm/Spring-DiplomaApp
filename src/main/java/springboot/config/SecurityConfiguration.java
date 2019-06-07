@@ -34,6 +34,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/index_user").access("hasRole('ROLE_STAFF')")
                 .antMatchers("/index").access("hasRole('EMPLOYER')")
                 .antMatchers(
+                        "/home**",
                         "/registration**",
                         "/js/**",
                         "/css/**",

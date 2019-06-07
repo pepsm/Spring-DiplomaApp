@@ -73,7 +73,7 @@
                                         <div class="job-icons">
                                             <span><i class="fa fa-briefcase"></i> <span th:text="${p.jobType}"></span></span>
                                             <span><i class="far fa-compass"></i> <span th:text="${p.location}"></span></span>
-                                            <span class="active"><i class="fas fa-user-clock"></i></i> <span th:text="${p.candidacyList.size()}"></span></span>
+                                            <span class="active"><i class="fas fa-user-clock"></i> <span th:text="${p.candidacyList.size()}"></span></span>
                                             <div class="pull-right btn-wrap">
                                                 <a id="btn-fl" type="button" class="btn btn-danger btn-sm" th:href="@{|/post/close/${p.id}|}" >Close</a>
                                                 <a id="btn-f2" type="button" class="btn btn-warning btn-sm" th:href="@{|/edit/${p.id}|}" > Edit </a>

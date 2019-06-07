@@ -59,6 +59,8 @@ public class PostController {
         postDTO.setImgName(file.getOriginalFilename());
         User user = userService.findByUsername(authentication.getName());
         postService.save(postDTO, user);
+
+
         return "redirect:/index";
     }
 
@@ -92,6 +94,7 @@ public class PostController {
     public String listCandidacy(@PathVariable String id, Model model){
         model.addAttribute("cands", postService.findById(id).getCandidacyList());
         model.addAttribute("post_id", id);
+        model.addAttribute("can_serv", candidacyService);
         return "listApplications";
     }
 

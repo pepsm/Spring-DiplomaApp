@@ -67,6 +67,13 @@
                         <p class="card-text up"><i class="fas fa-calendar-alt"></i> <small class="text-muted" th:text="${p.endDate}"></small></p><br>
                         <p class="card-text up"> <i class="fas fa-money-bill-alt"></i> <span th:text="${p.price}"></span></p>
                     </div>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8"></div>
+                        <div class="col-md-2">
+                            <a type="button" th:href="@{|/write/email/${p.id}|}" class="btn btn-primary btn-sm"> Write E-mail</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

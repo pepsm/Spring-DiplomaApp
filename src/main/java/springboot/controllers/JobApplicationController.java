@@ -17,6 +17,7 @@ import springboot.models.Candidacy;
 import springboot.models.File;
 import springboot.models.Post;
 import springboot.models.User;
+import springboot.models.enums.State;
 import springboot.services.base.CandidacyService;
 import springboot.services.base.StorageService;
 import springboot.services.base.UserService;
@@ -58,6 +59,9 @@ public class JobApplicationController {
 
         model.addAttribute("activePostList", true);
         model.addAttribute("postList", postPage.getContent());
+
+        model.addAttribute("user", userService.findByUsername(authentication.getName()));
+        model.addAttribute("can_serv", candidacyService);
         return "index_user";
     }
 
@@ -151,7 +155,6 @@ public class JobApplicationController {
     // employer
     @GetMapping("reject/{cand_id}")
     public String appReject(@PathVariable("cand_id") String cand_id){
-
         candidacyService.deleteById(candidacyService.findById(Integer.parseInt(cand_id)));
         return "redirect:/index";
     }
@@ -164,6 +167,10 @@ public class JobApplicationController {
             if(c.getId() != Integer.parseInt(cand_id))
                 candidacyService.deleteById(c);
         }
+
+        Candidacy c = candidacyService.findById(Integer.parseInt(cand_id));
+        c.setState(State.approved);
+        candidacyService.updateCand(c);
 
         return "redirect:/index";
     }

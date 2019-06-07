@@ -7,10 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import springboot.models.DTO.PostDTO;
 import springboot.models.DTO.PostEmployeeDTO;
@@ -41,9 +38,18 @@ public class PostEmplController {
     @GetMapping("/create/postEmp")
     public String showCreatePostForm(Model model, Authentication authentication) {
         PostEmployee p =  postEmployeeService.findByUser(userService.findByUsername(authentication.getName()).getId().toString());
-        if(p != null) model.addAttribute("postdto", p);
+        if(p != null){
+            model.addAttribute("postdto", p);
+            model.addAttribute("post_id", p.getId());
+        }
 
         return "postEmp";
+    }
+
+    @GetMapping("delete/post/emp/{id}")
+    public String deletePostEmp(@PathVariable String id){
+        postEmployeeService.deleteById(id);
+        return "redirect:/index_user";
     }
 
     @PostMapping("/create/post/emp")

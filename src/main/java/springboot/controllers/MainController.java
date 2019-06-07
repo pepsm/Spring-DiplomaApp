@@ -130,6 +130,9 @@ public class MainController {
         return "superuser";
     }
 
+    @GetMapping("/home")
+    public String home(){return "home";}
+
     @GetMapping("/userSettings")
     public String userSettings(Model model) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
