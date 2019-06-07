@@ -43,6 +43,14 @@
 </header>
 
 
+<br>
+<div class="row">
+    <ol class="breadcrumb">
+        <li class="active"><a href="/list/all">Data  <i class="fa fa-briefcase"></i></a>  </li>
+        <li><a th:href="@{|/list/emr/${'fulltime'}|}"><i class="fas fa-sort"></i> Full time</a></li>
+        <li><a th:href="@{|/list/emr/${'parttime'}|}"><i class="fas fa-sort"></i> Part time</a></li>
+    </ol>
+</div>
 
 <section>
     <div class="row" th:fragment="post-list" th:if="${postList != null && !postList.isEmpty()}">
@@ -59,7 +67,7 @@
 
                     <div class="list-view">
                                     <span>
-                                        <img th:src="@{/img/n.png}" th:alt="icon">
+                                         <img th:src="@{${'/uploads/'+ p.imgName}}" th:alt="icon">
                                     </span>
 
                         <div class="list-info target">

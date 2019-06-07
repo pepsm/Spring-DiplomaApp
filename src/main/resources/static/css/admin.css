@@ -1,21 +1,20 @@
-.content {
+.content-admin {
     margin-left: 200px;
     height: 900px;
     width: auto;
     position: relative;
-    background: #e2eaf8;
+    background: #ffffff;
     overflow: auto;
     z-index: 1;
 }
-main{
-    margin-top: 5%;
-}
+
 
 .vertical-menu {
+    margin-top: 5%;
     width: 200px;
     position: fixed;
-    height: 100%;
-    background: #1d2535;
+    height: 50%;
+    background: rgb(48, 48, 48);
     font-family: "Open Sans",sans-serif;;
 }
 ul{
@@ -26,9 +25,15 @@ ul{
     display: block;
     padding: 12px;
     text-decoration: none;
+    border-bottom: 1px solid rgb(48, 48, 48);
+}
+.vertical-menu li:hover:not(.active){
+   border-bottom: 1px solid rgba(96, 82, 229, 0.93);
+    color: white;
 }
 .vertical-menu a{
-    color: #b7c0cd;
+    display: block;
+    color: #dedede;
     text-decoration: none;
 }
 
@@ -39,8 +44,9 @@ ul{
 li.active {
     text-align: center;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    background-color: #0f1b34;
+    background-color: rgba(30, 58, 108, 0.65);
     color: white;
+    margin-bottom: 10px;
 }
 
 .vertical-menu span{

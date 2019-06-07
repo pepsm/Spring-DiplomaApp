@@ -12,7 +12,7 @@
 }
 
 body{
-    margin-top: 6%;
+    margin-top: 4%;
     position: relative;
     min-height: 100vh;
 }
@@ -80,8 +80,8 @@ div.row{
     text-align: right;
     height: 100%;
 }
-.card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    .card:hover {
+    box-shadow: 0 8px 16px 0 rgba(255, 173, 66, 0.5);
 }
 #apply{
     padding: 20px;
@@ -213,4 +213,70 @@ article .c{
 }
 .job-icons .active:hover{
     color: #d28338;
+}
+.parallax {
+    /* The image used */
+
+    background-image: url("../img/home.jpg");
+    /* Set a specific height */
+    min-height: 700px;
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.para-box1{
+    height:350px;
+    padding-top: 5%;
+    padding-left: 20%;
+    padding-right: 20%;
+}
+
+.para-box2{
+    padding-top: 2%;
+    height: 100px;
+    background-color: #ffffff;
+}
+.page-header:hover {
+    border-bottom: 1px solid #2e2e2e;
+
+}
+.footer-icons{
+    padding-right: 40%;
+    padding-left: 40%;
+}
+.footer-icons ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.footer-icons li {
+    display: inline;
+    padding-left: 20px;
+}
+.footer-icons li a{
+    text-decoration: none;
+    font-size: large;
+}
+#reg-card{
+    padding: 15px;
+}
+#postEmp-box{
+    padding: 15px;
+}
+.breadcrumb a{
+    text-decoration: none;
+    color: #9b9b9b;
+}
+.breadcrumb a:hover{
+    color: black;
+}
+.breadcrumb{
+    text-align: center;
+    background-color: #ffffff;
+    border-bottom: solid 1px #dedede;
 }

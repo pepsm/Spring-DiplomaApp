@@ -37,7 +37,7 @@ public class PostEmplController {
 
     @GetMapping("/create/postEmp")
     public String showCreatePostForm(Model model, Authentication authentication) {
-        PostEmployee p =  postEmployeeService.findByUser(userService.findByUsername(authentication.getName()).getId().toString());
+        PostEmployee p =  postEmployeeService.findByUser(userService.findByUsername(authentication.getName()));
         if(p != null){
             model.addAttribute("postdto", p);
             model.addAttribute("post_id", p.getId());
@@ -47,7 +47,7 @@ public class PostEmplController {
     }
 
     @GetMapping("delete/post/emp/{id}")
-    public String deletePostEmp(@PathVariable String id){
+    public String deletePostEmp(@PathVariable("id") String id){
         postEmployeeService.deleteById(id);
         return "redirect:/index_user";
     }
@@ -67,14 +67,16 @@ public class PostEmplController {
         postEmployeeService.deleteAllByUser(user_id, postEmployeeService.listByEmployee(user_id));
         postEmployeeService.save(postEmployeeDTO, user);
 
-        model.addAttribute("post", postEmployeeService.findByUser(user_id));
+        model.addAttribute("post", postEmployeeService.findByUser(user));
         return "empView";
     }
 
     @GetMapping("/create/view")
     public String showCreated(Model model, Authentication authentication) {
 
-        model.addAttribute("posts", postEmployeeService.listAllPosts());
+        if(postEmployeeService.listAllPosts() != null)
+            model.addAttribute("posts", postEmployeeService.listAllPosts());
+
         return "postEmpList";
     }
 }

@@ -80,6 +80,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean containsRole(User user, String role) {
+        for (Role r: user.getRoles()) {
+            if(r.getName().equalsIgnoreCase(role)){
+                return true;
+            }
+        }
+        return  false;
+    }
+
+    @Override
     public void update(String id, User user, String filename) {
         Optional<User> opt = userRepository.findById(Long.parseLong(id));
         if(opt.isPresent())

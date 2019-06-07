@@ -22,17 +22,38 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#" th:href="@{/}"><i class="fas fa-wallet"></i> <span>BILLFOLD</span></a>
+            <a class="navbar-brand" href="/login" th:href="@{/login}"><i class="fas fa-wallet"></i> <span>BILLFOLD</span></a>
         </div>
 
         <ul class="nav navbar-nav navbar-right">
-            <li><a th:href="@{/login}"><i class="fas fa-address-book"></i>  Login</a></li>
-            <li><a th:href="@{/registration}"><i class="fas fa-address-book"></i>   Register</a></li>
+            <li><a th:href="@{/login}"><i class="fas fa-sign-in-alt"></i>  Login</a></li>
+            <li><a th:href="@{/registration}"><i class="fas fa-address-book"></i> Register</a></li>
         </ul>
         </div>
     </div>
-
 </nav>
+<main>
+    <div class="para-box1">
+        <a style="color: #4a4a4a; text-decoration: none;" href="/login">
+        <div class="page-header">
+
+            <h1>BILLFOLD    <small> - "Work to become, not to acquire."</small></h1>
+        </div>
+        </a>
+    </div>
+    <div class="parallax"></div>
+
+    <div class="para-box2">
+        <div class="footer-icons">
+            <ul>
+                <li><a href="/login"><i class="fab fa-facebook-square"></i></a></li>
+                <li><a href="/login"><i class="fab fa-github-alt"></i></a></li>
+                <li><a href="/login"><i class="fab fa-gratipay"></i></a></li>
+            </ul>
+        </div>
+    </div>
+</main>
+
 
 <script type="text/javascript"
         th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>

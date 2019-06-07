@@ -7,4 +7,5 @@ import springboot.models.Candidacy;
 @Repository
 public interface CandidacyRepository extends JpaRepository<Candidacy, Long> {
     public Candidacy findById(int id);
+
 }

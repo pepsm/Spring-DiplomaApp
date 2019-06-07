@@ -77,9 +77,11 @@ public class PostEmployeeServiceImpl implements PostEmployeeService {
     }
 
     @Override
-    public PostEmployee findByUser(String id) {
-        for (PostEmployee p : postEmplyeeRepository.findAll()){
-            if(p.getUser().getId().toString().equals(id))
+    public PostEmployee findByUser(User user) {
+
+        List<PostEmployee> list = postEmplyeeRepository.findAll();
+        for (PostEmployee p : list){
+            if(p.getUser().getId().toString().equals(user.getId().toString()))
             {
                return p;
             }

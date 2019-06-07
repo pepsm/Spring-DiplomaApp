@@ -17,7 +17,7 @@ public interface PostEmployeeService {
     void closeById(String id);
     void deleteAllByUser(String id,  List<PostEmployee> list);
     PostEmployee findById(String id);
-    PostEmployee findByUser(String id);
+    PostEmployee findByUser(User user);
     PostEmployee save(PostEmployeeDTO post, User user);
     Page<PostEmployee> getPaginatedPosts (Pageable pageable);
     Page<PostEmployee> getPaginatedPostsofUser (User user,Pageable pageable);

@@ -40,6 +40,11 @@ public class MainController {
         return new PostDTO();
     }
 
+    @GetMapping("/")
+    public String root(){
+        return "redirect:/index";
+    }
+
     @GetMapping("/index")
     public String index(Model model, Authentication authentication){
 
@@ -57,10 +62,7 @@ public class MainController {
         model.addAttribute("postList", postPage.getContent());
         return "index";
     }
-    @GetMapping("/")
-    public String root(){
-        return "redirect:/index";
-    }
+
     @GetMapping("/page/{page}")
     public String listArticlesPageByPage(@PathVariable("page") int page, Model model, Authentication authentication) {
 
@@ -92,6 +94,27 @@ public class MainController {
         }
 
         model.addAttribute("activePostList", true);
+        model.addAttribute("postList", postPage.getContent());
+
+        return "listall";
+    }
+
+    @GetMapping("/list/emr/{category}")
+    public String listall_sort(@PathVariable String category, Model model){
+
+        PageRequest pageable = PageRequest.of( 0, 12);
+        Page<Post> postPage = null;
+        if(category.equalsIgnoreCase("fulltime"))
+            postPage = postService.getPaginatedPostsByJobType("Full time", pageable);
+        else if(category.equalsIgnoreCase("parttime"))
+            postPage = postService.getPaginatedPostsByJobType("Part time", pageable);
+
+        int totalPages = postPage.getTotalPages();
+        if(totalPages >= 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1,totalPages).boxed().collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
+
         model.addAttribute("postList", postPage.getContent());
 
         return "listall";
@@ -134,14 +157,17 @@ public class MainController {
     public String home(){return "home";}
 
     @GetMapping("/userSettings")
-    public String userSettings(Model model) {
+    public String userSettings(Model model, Authentication authentication) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
             model.addAttribute("user", userService.findByUsername(((UserDetails)principal).getUsername()));
             model.addAttribute("user_id", userService.findByUsername(((UserDetails)principal).getUsername()).getId());
         }else {
             return "redirect:/index";
-        }
+        };
+
+
+        model.addAttribute("role", userService.containsRole(userService.findByUsername(authentication.getName()), "ROLE_ADMIN"));
 
         return "userSettings";
     }
@@ -153,12 +179,15 @@ public class MainController {
     }
 
     @PostMapping("/update/user")
-    public String updateUser(@PathParam("user") User user,  @RequestParam("file") MultipartFile file){
+    public String updateUser(@PathParam("user") User user,  @RequestParam("file") MultipartFile file, Authentication authentication){
         storageService.store(file);
         User u = userService.findByUsername(user.getUserName());
         userService.update(u.getId().toString(), user, file.getOriginalFilename());
 
-        return "redirect:/index";
+        if(userService.containsRole(u, "ROLE_EMPLOYER")){
+            return "redirect:/index";
+        }
+        return "redirect:/index_user";
     }
 
     @ModelAttribute("users")

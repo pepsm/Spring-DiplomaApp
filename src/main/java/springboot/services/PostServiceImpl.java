@@ -96,10 +96,6 @@ public class PostServiceImpl implements PostService {
     @Override
     public void closeById(String id) {
         postRepository.deleteById(Long.parseLong(id));
-        /*
-       Optional<Post> opt = postRepository.findById(Long.parseLong(id));
-       opt.ifPresent(post -> post.setActive(false));
-       postRepository.save(opt.get());*/
     }
 
     @Override
@@ -119,6 +115,11 @@ public class PostServiceImpl implements PostService {
     public Page<Post> getPaginatedPosts(Pageable pageable) {
 
         return postRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<Post> getPaginatedPostsByJobType(String jobType,Pageable pageable) {
+        return postRepository.findAllByJobType(jobType, pageable);
     }
 
     @Override

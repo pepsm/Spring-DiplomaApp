@@ -15,17 +15,20 @@
     <link rel="stylesheet" type="text/css" href="../static/css/admin.css"
           media="all"  th:href="@{/css/admin.css}" />
 
+
+    <link rel="stylesheet" type="text/css" href="../static/css/index.css"
+          media="all"  th:href="@{/css/index.css}" />
+
     <title>Admin</title>
 </head>
 
 <body>
 
 <header>
-    <nav class="navbar navbar-default navbar-fixed-top ">
+    <nav class="navbar navbar-fixed-top ">
         <div class="container">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#" th:href="@{/}"><i class="fas fa-wallet"></i>
-                    <span>BILLFOLD</span></a>
+                <a style="color:rgb(247,247,247);" class="navbar-brand" href="#" th:href="@{/}"><i class="fas fa-user-secret"></i> ADMIN</a>
             </div>
             <div>
                 <ul class="nav navbar-nav navbar-right">
@@ -40,7 +43,7 @@
         </div>
     </nav>
 </header>
-<main>
+
 <div class="vertical-menu">
     <ul>
         <li class="active"><a href="#"><i class="fas fa-igloo"></i> Dashboard</a></li>
@@ -50,8 +53,37 @@
     </ul>
 </div>
 
-<div class="content"></div>
-</main>
+<div class="content-admin">
+
+    <table id="customTable" class="table table-striped">
+        <thead>
+        <tr>
+            <th>No</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="u , rowStat: ${users}">
+            <td th:text="${rowStat.count}">1</td>
+            <td th:text="${u.getUsername()}">Username</td>
+            <td th:text="${u.getEmail()}">Email</td>
+            <td th:text="${u.getFirstName()}">First name</td>
+            <td th:text="${u.getLastName()}">Last name</td>
+
+            <td><a th:href="@{|/userSettings/${u.id}|}" class="btn btn-primary" >Update</a></td>
+            <td><a th:unless="${u.getUsername() == 'admin'}" th:href="@{|/delete/${u.id}|}" class="btn btn-danger" > Delete</a></td>
+
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>
 </body>
 
 

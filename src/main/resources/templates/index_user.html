@@ -15,7 +15,6 @@
     <link rel="stylesheet" type="text/css" href="../static/css/searchForm.css"
           media="all"  th:href="@{/css/searchForm.css}" />
 
-
     <title>Main </title>
 </head>
 <body>
@@ -37,10 +36,10 @@
                         <a class="nav-link" th:href="@{/create/postEmp}"><i class="fab fa-studiovinari"></i>   <span sec:authentication="principal.username">Create</span></a>
                     </li><li class="nav-item">
                     <a th:unless="${can_serv.getApprovedCount(user.getId().toString())} > 0"><i class="fas fa-user-clock"></i>
-                        <span th:text="${can_serv.getApprovedCount(user.getId().toString())}"></span>
+                        <span  class="badge" th:text="${can_serv.getApprovedCount(user.getId().toString())}"></span>
                     </a>
                     <a style="color: #3bc28c;" th:if="${can_serv.getApprovedCount(user.getId().toString())} > 0"><i class="fas fa-user-clock"></i>
-                        <span th:text="${can_serv.getApprovedCount(user.getId().toString())}"></span>
+                        <span  class="badge" th:text="${can_serv.getApprovedCount(user.getId().toString())}"></span>
                     </a>
                     </li>
                     <li class="nav-item">
@@ -53,35 +52,35 @@
         </div>
     </nav>
 </header>
-
-
-
+<br>
+<div class="row">
+    <ol class="breadcrumb">
+        <li class="active"><a href="/index_user">Data  <i class="fa fa-briefcase"></i></a>  </li>
+        <li><a th:href="@{|/sort/${'fulltime'}|}"><i class="fas fa-sort"></i> Full time</a></li>
+        <li><a th:href="@{|/sort/${'parttime'}|}"><i class="fas fa-sort"></i> Part time</a></li>
+    </ol>
+</div>
 <section>
     <div class="row" th:fragment="post-list" th:if="${postList != null && !postList.isEmpty()}">
         <div class="col-md-2"></div>
         <div class="col-md-8">
             <div class="bg-danger warning no-result"><i class="fa fa-warning"></i> No result</div>
             <div th:each="p : ${postList}" class="job-list">
-
-            <a style="text-decoration: none; color: black;" th:href="@{|/post/view/${p.id}|}">
-
-            <div class="list-view">
-
-
-
-                        <div class="row">
+                <a style="text-decoration: none; color: black;" th:href="@{|/post/view/${p.id}|}">
+                 <div class="list-view">
+                        <div class="row"    >
                             <div class="col-md-2">
                                 <span>
                                     <img th:src="@{${'/uploads/'+ p.imgName}}" th:alt="icon">
                                 </span>
                             </div>
-                            <div class="col-md-8">
-                                <h4 th:text="${p.topic}">Topic</h4>
-                                <p  th:text="${p.description}">Description</p>
 
+                            <div class="col-md-8 target">
+                                    <h4 th:text="${p.topic}">Topic</h4>
+                                    <p th:text="${p.description}">Description</p>
                                 <div class="job-icons">
-                                    <span><i class="fa fa-briefcase"></i> <span th:text="${p.jobType}"></span></span>
-                                    <span><i class="far fa-compass"></i> <span th:text="${p.location}"></span></span>
+                                    <i class="fa fa-briefcase"></i> <span th:text="${p.jobType}"></span>
+                                    <i class="far fa-compass"></i> <span th:text="${p.location}"></span>
                                 </div>
                             </div>
                             <div class="col-md-2 col-xs-5">
@@ -96,10 +95,10 @@
                                     </div>
                             </div>
                         </div>
+                 </div>
+                </a>
+            </div>
 
-                </div>
-            </a>
-        </div>
             <div class="row" th:fragment="pagination">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">

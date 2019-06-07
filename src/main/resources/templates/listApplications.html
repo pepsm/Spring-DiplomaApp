@@ -16,61 +16,55 @@
     <title>list </title>
 </head>
 <body>
-
-    <nav class="navbar navbar-inverse navbar-fixed-top ">
-        <div class="container-fluid">
+<header>
+    <nav class="navbar navbar-fixed-top ">
+        <div class="container">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#" th:href="@{/}"><i class="fas fa-wallet"></i>
                     <span>BILLFOLD</span></a>
             </div>
 
+            <div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a class="active"><i class="fas fa-user-secret"></i> EMPLOYER</a></li>
+                    <li><a th:href="@{/list/all}"><i class="fas fa-address-book"></i> All </a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/userSettings}"><i class="fas fa-users-cog"> </i>   <span sec:authentication="principal.username">Settings</span></a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}"> <i class="fas fa-sign-in-alt"></i> Logout</a></li>
+                </ul>
+            </div>
 
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fas fa-users-cog"></i>   <span sec:authentication="principal.username">User</span></a>
-                </li>
-                <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}"> <i class="fas fa-sign-in-alt"></i> Logout</a></li>
-            </ul>
         </div>
     </nav>
-
+</header>
     <table id="customTable" class="table table-striped">
         <thead>
         <tr>
-        <th>No</th>
-        <th>Username</th>
-        <th>Email</th>
-        <th>First name</th>
-        <th>Last name</th>
-        <th></th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="ap, rowStat: ${cands}">
-        <td th:text="${rowStat.count}">1</td>
-        <td th:text="${ap.getUser().userName}">Username</td>
-        <td th:text="${ap.getUser().email}">Email</td>
-        <td th:text="${ap.getUser().firstName}">First name</td>
-        <td th:text="${ap.getUser().lastName}">Last name</td>
+            <th>No</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="ap, rowStat: ${cands}">
+            <td th:text="${rowStat.count}">1</td>
+            <td th:text="${ap.getUser().userName}">Username</td>
+            <td th:text="${ap.getUser().email}">Email</td>
+            <td th:text="${ap.getUser().firstName}">First name</td>
+            <td th:text="${ap.getUser().lastName}">Last name</td>
 
-        <td><a class="btn btn-primary" th:href="@{|/app/${post_id}/${ap.getId()}/${ap.getUser().id}|}" ><i class="fas fa-eye"></i> View</a></td>
-        <td><a th:if="${can_serv.StateToBool(ap.getState())}" class="btn btn-default" disabled th:href="@{|/approve/${ap.getId()}|}"><i class="fas fa-check-circle"></i> Approve</a></td>
-        <td><a th:unless="${can_serv.StateToBool(ap.getState())}" class="btn btn-success" th:href="@{|/approve/${ap.getId()}|}"><i class="fas fa-check-circle"></i> Approve</a></td>
-        <td><a class="btn btn-danger" th:href="@{|/reject/${ap.getId()}|}"><i class="fas fa-times-circle"></i> Reject</a></td>
+            <td><a class="btn btn-primary" th:href="@{|/app/${post_id}/${ap.getId()}/${ap.getUser().id}|}" ><i class="fas fa-eye"></i> View</a></td>
+            <td><a th:if="${can_serv.StateToBool(ap.getState())}" class="btn btn-default" disabled th:href="@{|/approve/${ap.getId()}|}"><i class="fas fa-check-circle"></i> Approve</a></td>
+            <td><a th:unless="${can_serv.StateToBool(ap.getState())}" class="btn btn-success" th:href="@{|/approve/${ap.getId()}|}"><i class="fas fa-check-circle"></i> Approve</a></td>
+            <td><a class="btn btn-danger" th:href="@{|/reject/${ap.getId()}|}"><i class="fas fa-times-circle"></i> Reject</a></td>
 
-    </tr>
-    </tbody>
+        </tr>
+        </tbody>
     </table>
 
 

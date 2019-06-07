@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import springboot.models.DTO.NotificationDTO;
 import springboot.models.DTO.UserRegistrationDTO;
 import springboot.models.User;
+import springboot.services.NotificationService;
 import springboot.services.base.StorageService;
 import springboot.services.base.UserService;
 
@@ -24,6 +26,9 @@ public class UserRegistrationController {
 
     @Autowired
     private StorageService storageService;
+
+    @Autowired
+    private NotificationService notificationService;
 
     @ModelAttribute("user")
     public UserRegistrationDTO userRegistrationDto() {
@@ -48,6 +53,7 @@ public class UserRegistrationController {
         if (result.hasErrors()) {
             return "registration";
         }
+        notificationService.sendRegistrationNotification(new NotificationDTO());
         storageService.store(file);
         userDto.setImgName(file.getOriginalFilename());
         userService.save(userDto);

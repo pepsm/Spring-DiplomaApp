@@ -19,6 +19,6 @@ public interface PostService {
     Post findById(String id);
     Post save(PostDTO post, User user);
     Page<Post> getPaginatedPosts (Pageable pageable);
-
+    Page<Post> getPaginatedPostsByJobType(String jobType,Pageable pageable);
     Page<Post> getPaginatedPostsofUser (User user,Pageable pageable);
 }

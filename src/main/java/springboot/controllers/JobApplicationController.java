@@ -14,10 +14,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import springboot.models.Candidacy;
+import springboot.models.DTO.NotificationDTO;
 import springboot.models.File;
 import springboot.models.Post;
 import springboot.models.User;
 import springboot.models.enums.State;
+import springboot.services.NotificationService;
 import springboot.services.base.CandidacyService;
 import springboot.services.base.StorageService;
 import springboot.services.base.UserService;
@@ -44,6 +46,9 @@ public class JobApplicationController {
     @Autowired
     private StorageService storageService;
 
+    @Autowired
+    private NotificationService notificationService;
+
 
     // logic of the employee
     @GetMapping("/index_user")
@@ -65,9 +70,34 @@ public class JobApplicationController {
         return "index_user";
     }
 
+    @GetMapping("/sort/{category}")
+    public String index_sort(@PathVariable("category") String category, Model model, Authentication authentication){
+
+        PageRequest pageable = PageRequest.of( 0, 4);
+        Page<Post> postPage = null;
+        if(category.equalsIgnoreCase("fulltime"))
+            postPage = postService.getPaginatedPostsByJobType("Full time", pageable);
+        else if(category.equalsIgnoreCase("parttime"))
+            postPage = postService.getPaginatedPostsByJobType("Part time", pageable);
+
+        int totalPages = postPage.getTotalPages();
+
+        if(totalPages >= 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1,totalPages).boxed().collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
+
+        model.addAttribute("activePostList", true);
+        model.addAttribute("postList", postPage.getContent());
+
+        model.addAttribute("user", userService.findByUsername(authentication.getName()));
+        model.addAttribute("can_serv", candidacyService);
+
+        return "index_user";
+    }
 
     @GetMapping("/post/view/{id}")
-    public String viewPost(@PathVariable String id, Model model, Authentication authentication) {
+    public String viewPost(@PathVariable("id") String id, Model model, Authentication authentication) {
 
        Post p = postService.findById(id);
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -148,8 +178,9 @@ public class JobApplicationController {
 
     @GetMapping("close/{cand_id}")
     public String candClose(@PathVariable("cand_id") String cand_id){
+        if(cand_id != null)
         candidacyService.deleteById(candidacyService.findById(Integer.parseInt(cand_id)));
-        return "redirect:/user_index";
+        return "redirect:/index_user";
     }
 
     // employer
@@ -171,6 +202,10 @@ public class JobApplicationController {
         Candidacy c = candidacyService.findById(Integer.parseInt(cand_id));
         c.setState(State.approved);
         candidacyService.updateCand(c);
+
+        NotificationDTO n = new NotificationDTO();
+        n.setSubject("Approved for a JOB");
+        notificationService.sendApprovedNotification(n);
 
         return "redirect:/index";
     }

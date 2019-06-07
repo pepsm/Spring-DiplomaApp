@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 import springboot.models.PostEmployee;
 import springboot.models.User;
 
+import java.util.List;
+
 @Repository
 public interface PostEmplyeeRepository extends JpaRepository<PostEmployee, Long> {
     PostEmployee findById(int id);

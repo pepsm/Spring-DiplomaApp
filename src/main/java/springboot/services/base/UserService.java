@@ -26,4 +26,6 @@ public interface UserService extends UserDetailsService {
     void delete(User user);
 
     User save(UserRegistrationDTO registration);
+
+    boolean containsRole(User user, String role);
 }
