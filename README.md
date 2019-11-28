@@ -1,7 +1,10 @@
-Job Portal - Billfold
+Professional Job Portal - Billfold
 ---------------------
-
-It is simple job portal application implemented with Java and Spring Framework.
+### Description
+- Designed and developed a job portal using Java, Spring MVC, and Hibernate ORM.
+- The application enabled job-seekers to register for viewing the jobs posted by employers as well as apply to them. The employers can also register, post jobs, and receive applications for the job they posted. The application had the functionality to create, retrieve, update, and delete information.
+- Enhanced database interaction using Hibernate annotations based mapping with MySQL.
+- Built a user friendly and responsive website to enhance user experience.
 
 ### Prerequisites
 Maven is written in Java (and primarily used to build Java programs). You need to install the Java SDK (e.g. from [Oracle's download site](https://www.oracle.com/technetwork/java/javase/downloads/index.html)), and you should set the path to System Enviroment variables.
