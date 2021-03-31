@@ -8,7 +8,8 @@ Professional Job Portal - Billfold
 - Built a user friendly and responsive website to enhance user experience.
 
 ### Prerequisites
-Maven is written in Java (and primarily used to build Java programs). You need to install the Java SDK (e.g. from [Oracle's download site](https://www.oracle.com/technetwork/java/javase/downloads/index.html)), and you should set the path to System Enviroment variables.
+Maven is written in Java (and primarily used to build Java programs). You need to install the Java SDK,
+and you should set the path to System Enviroment variables.
  - Java 8
  - Apache maven 3.0.3 or greater
 
